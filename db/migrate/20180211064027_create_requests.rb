@@ -4,7 +4,7 @@ class CreateRequests < ActiveRecord::Migration[5.1]
       t.integer :employee_id
       t.integer :requesting_shift_id
       t.integer :responding_shift_id
-      t.string :status
+      t.string :status, :default => 'pending'
 
       t.timestamps
     end
