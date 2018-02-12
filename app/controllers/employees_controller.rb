@@ -6,8 +6,7 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
-    @teams = {}
-    Team.all.each { |team| @teams[team.name] = team.id }
+    @teams = Team.all
   end
 
   def create

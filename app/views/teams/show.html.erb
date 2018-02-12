@@ -12,20 +12,27 @@
   </p>
 </div>
 
-<div>
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Team</th>
-      <th>Active?</th>
-    </tr>
-    <% @teams.employees.each do |employee| %>
+
+<% if @team.employees.length === 0 %>
+  <div>
+    <table>
       <tr>
-        <td><%= employee.id %></td>
-        <td><%= employee.name %></td>
-        <td><%= employee.team.name %></td>
-        <td><%= employee.assignable %></td>
-      <tr>
-    <% end %>
-  </table>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Team</th>
+        <th>Active?</th>
+      </tr>
+      <% @team.employees.each do |employee| %>
+        <tr>
+          <td><%= employee.id %></td>
+          <td><%= employee.name %></td>
+          <td><%= employee.assignable %></td>
+        <tr>
+      <% end %>
+    </table>
+  </div>
+<% elsif %>
+  <p>
+    This team has no members.
+  </p>
+<% end %>

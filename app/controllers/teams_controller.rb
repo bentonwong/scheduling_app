@@ -10,6 +10,8 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.create(team_params)
+    @team.employees.build
+    @team.save
     redirect_to team_path(@team)
   end
 

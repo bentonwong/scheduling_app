@@ -7,7 +7,7 @@
       <%= f.text_field :name %>
     </p>
     <p>
-      Add to A Team <%= f.select :init_team_id, @teams %>
+      <label>Teams</label> <%= f.collection_check_boxes :team_ids, @teams, :id, :name %>
     </p>
     <p>
       <%= f.submit %>
