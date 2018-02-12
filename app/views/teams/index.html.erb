@@ -6,7 +6,7 @@
       <th>ID</th>
       <th>Name</th>
     </tr>
-    <% @teams.each do |team| %>
+    <% @teams.sort_by(&:id).each do |team| %>
       <tr>
         <td><%= team.id %></td>
         <td><%= team.name %></td>

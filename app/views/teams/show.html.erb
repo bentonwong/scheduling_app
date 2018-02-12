@@ -2,7 +2,7 @@
 
 <div>
   <p>
-    Team Name: <%= @team.name %>
+    Team: <%= @team.name %>
   </p>
   <p>
     Number of Members: <%= @team.employees.length %>
@@ -12,27 +12,34 @@
   </p>
 </div>
 
-
-<% if @team.employees.length === 0 %>
+<% if @team.employees.length > 0 %>
   <div>
     <table>
       <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Team</th>
         <th>Active?</th>
       </tr>
       <% @team.employees.each do |employee| %>
         <tr>
           <td><%= employee.id %></td>
           <td><%= employee.name %></td>
-          <td><%= employee.assignable %></td>
+          <td><%= employee.assignable ? "yes" : "" %></td>
         <tr>
       <% end %>
     </table>
   </div>
-<% elsif %>
+<% else %>
   <p>
     This team has no members.
   </p>
 <% end %>
+
+<div class="btn-group">
+  <div>
+    <%= button_to "Cancel", teams_path %>
+  </div>
+  <div>
+    <%= button_to "Edit", edit_team_path(@team) %>
+  </div>
+</div>

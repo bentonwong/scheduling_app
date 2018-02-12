@@ -9,7 +9,7 @@ class TeamsController < ApplicationController
   end
 
   def create
-    @team = Team.create(team_params)
+    @team = Team.new(team_params)
     @team.employees.build
     @team.save
     redirect_to team_path(@team)
@@ -17,6 +17,16 @@ class TeamsController < ApplicationController
 
   def show
     @team = Team.find_by_id(params[:id])
+  end
+
+  def edit
+    @team = Team.find_by_id(params[:id])
+  end
+
+  def update
+    @team = Team.find_by_id(params[:id])
+    @team.update(team_params)
+    redirect_to team_path(@team)
   end
 
   private

@@ -10,6 +10,12 @@
       <label>Teams</label> <%= f.collection_check_boxes :team_ids, @teams, :id, :name %>
     </p>
     <p>
+      <label>Active?</label> <%= f.check_box :assignable %>
+    </p>
+    <p>
+      <label>Assignable?</label> <%= f.check_box :role %>
+    </p>
+    <p>
       <%= f.submit %>
     </p>
   <% end %>

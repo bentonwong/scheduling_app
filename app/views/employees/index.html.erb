@@ -8,7 +8,7 @@
       <th>Role</th>
       <th>Assignable?</th>
     </tr>
-    <% @employees.each do |employee| %>
+    <% @employees.sort_by(&:id).each do |employee| %>
       <tr>
         <td><%= employee.id %></td>
         <td><%= employee.name %></td>

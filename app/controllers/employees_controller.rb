@@ -10,7 +10,18 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    raise params.inspect
+    @employee = Employee.new(employee_params)
+    if @employee.save
+      redirect_to @employee
+    else
+      render :new
+    end
   end
+
+  private
+
+    def employee_params
+      params.require(:employee).permit(:name, :assignable, :role)
+    end
 
 end
