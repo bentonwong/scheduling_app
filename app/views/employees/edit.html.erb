@@ -1,7 +1,7 @@
-<h1>Add Employee</h1>
+<h1>Edit Employee</h1>
 
 <%= render partial: "form", locals: {employee: @employee, teams: @teams} %>
 
 <div>
-  <%= button_to "Cancel", employees_path, method: :get %>
+  <%= button_to "Cancel", employee_path(@employee), method: :get %>
 </div>

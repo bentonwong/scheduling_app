@@ -22,9 +22,9 @@
       </tr>
       <% @team.employees.each do |employee| %>
         <tr>
-          <td><%= employee.id %></td>
+          <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
           <td><%= employee.name %></td>
-          <td><%= employee.assignable ? "yes" : "" %></td>
+          <td><%= employee.assignable %></td>
         <tr>
       <% end %>
     </table>
@@ -37,7 +37,7 @@
 
 <div class="btn-group">
   <div>
-    <%= button_to "Cancel", teams_path %>
+    <%= button_to "Cancel", teams_path, method: :get %>
   </div>
   <div>
     <%= button_to "Edit", edit_team_path(@team) %>

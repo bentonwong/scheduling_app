@@ -1,0 +1,40 @@
+<h1>Employee Details</h1>
+
+<div>
+  <p>
+    Name: <%= @employee.name %>
+  </p>
+  <p>
+    Teams:
+      <% if @employee.teams.length > 0 %>
+        <ul>
+          <% @employee.teams.each do |team| %>
+            <li>
+              <%= link_to team.name, team_path(team), method: :get %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>
+          This employee is not a member of any team.
+        </p>
+      <% end %>
+  </p>
+  <p>
+    Assignable? <%= @employee.assignable %>
+  </p>
+  <p>
+    Admin? <%= @employee.admin %>
+  </p>
+</div>
+
+<div>
+  <div class="btn-group">
+    <div>
+      <%= button_to "Cancel", employees_path, method: :get %>
+    </div>
+    <div>
+      <%= button_to "Edit", edit_employee_path(@employee) %>
+    </div>
+  </div>
+</div>

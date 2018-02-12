@@ -18,6 +18,21 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def show
+    @employee = Employee.find_by_id(params[:id])
+  end
+
+  def edit
+    @employee = Employee.find_by_id(params[:id])
+    @teams = Team.all
+  end
+
+  def update
+    @employee = Employee.find_by_id(params[:id])
+    @employee.update(employee_params)
+    redirect_to @employee
+  end
+
   private
 
     def employee_params

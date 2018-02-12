@@ -1,0 +1,26 @@
+<div>
+  <%= form_for team do |f| %>
+    <p>
+      Name: <%= f.text_field :name %>
+    </p>
+    <p>
+      Day of the Week Shifts Will Start: <%= f.select :start_day, {
+        :Sunday => 0,
+        :Monday => 1,
+        :Tuesday => 2,
+        :Wednesday => 3,
+        :Thursday => 4,
+        :Friday => 5,
+        :Saturday => 6
+        } %>
+    </p>
+    <p>
+      Length of Weekly Shift Block (days): <%= f.select :shift_length, [1, 2, 3, 4, 5, 6, 7] %>
+    </p>
+
+    <div>
+      <%= f.submit %>
+    </div>
+
+  <% end %>
+</div>
