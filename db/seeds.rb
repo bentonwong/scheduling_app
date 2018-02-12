@@ -32,3 +32,5 @@ BUG_ENGINEERS.each do |employee|
 end
 
 Team.create(name: BUG_ENGINEERING_TEAM, start_day: 0, shift_length: 7)
+
+Employee.create(name:'Admin', assignable: false, role: 'admin');

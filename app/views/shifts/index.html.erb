@@ -1,0 +1,14 @@
+<h1>Shifts</h1>
+
+<div>
+  <table>
+    <tr>
+      <th>ID</th>
+    </tr>
+    <% @shifts.each do |shift| %>
+      <tr>
+        <td><%= shift.id %></td>
+      <tr>
+    <% end %>
+  </table>
+</div>
