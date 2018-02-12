@@ -1,0 +1,31 @@
+<h1>Team Details</h1>
+
+<div>
+  <p>
+    Team Name: <%= @team.name %>
+  </p>
+  <p>
+    Number of Members: <%= @team.employees.length %>
+  </p>
+  <p>
+    id: <%= @team.id %>
+  </p>
+</div>
+
+<div>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Team</th>
+      <th>Active?</th>
+    </tr>
+    <% @teams.employees.each do |employee| %>
+      <tr>
+        <td><%= employee.id %></td>
+        <td><%= employee.name %></td>
+        <td><%= employee.team.name %></td>
+        <td><%= employee.assignable %></td>
+      <tr>
+    <% end %>
+  </table>

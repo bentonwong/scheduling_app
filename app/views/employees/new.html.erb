@@ -1,0 +1,16 @@
+<h1>Add New Employee</h1>
+
+<div>
+  <%= form_for @employee do |f| %>
+    <p>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      Add to A Team <%= f.select :init_team_id, @teams %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+</div>

@@ -27,10 +27,10 @@ BUG_ENGINEERS = [
 
 BUG_ENGINEERING_TEAM = 'Bug Engineers'
 
+@bug_engineering_team = Team.create(name: BUG_ENGINEERING_TEAM, start_day: 0, shift_length: 7)
 BUG_ENGINEERS.each do |employee|
-  Employee.create(name: employee, assignable: true, role: 'employee')
+  @bug_engineering_team.employees.build(name: employee, assignable: true, role: 'employee')
 end
-
-Team.create(name: BUG_ENGINEERING_TEAM, start_day: 0, shift_length: 7)
+@bug_engineering_team.save
 
 Employee.create(name:'Admin', assignable: false, role: 'admin');

@@ -9,7 +9,12 @@ class TeamsController < ApplicationController
   end
 
   def create
-    raise params.inspect
+    @team = Team.create(team_params)
+    redirect_to team_path(@team)
+  end
+
+  def show
+    @team = Team.find_by_id(params[:id])
   end
 
   private
