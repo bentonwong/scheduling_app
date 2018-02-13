@@ -26,14 +26,12 @@
       </table>
     </div>
 
-
-
 </div>
 
 <div class="right-align" style="margin-right:30px; margin-bottom:30px">
   <div className="fixed-action-btn">
-    <a href="/employees/new" class="btn-floating btn-large red">
-        <i class="material-icons">add</i>
-    </a>
+    <button class="btn-floating btn-large red">
+        <i class="material-icons icon-white"><%= link_to "add", new_employee_path, method: :get, class: "icon-white" %></i>
+    </button>
   </div>
 </div>

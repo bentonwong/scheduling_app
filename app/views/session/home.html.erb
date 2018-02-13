@@ -1,7 +1,22 @@
-<h1>MyWorkday</h1>
-
-<div>
+<div class="container center-align" style="margin: 25% 25%">
   <%= form_for @employee, :url => url_for(:controller => 'session', :action => 'create') do |f| %>
-    Login as <%= f.select :id, @employee_list %> <%= f.submit "Enter" %>
+
+    <div class="row">
+      <div class="col s2" style="padding: 10px; text-align: right; font-size: 22px">
+        Login as
+      </div>
+
+      <div class="col s4">
+        <%= f.select :id, @employee_list %>
+      </div>
+
+      <div class="col s2" style="padding-top: 3px">
+        <button type="submit" class="waves-effect waves-light btn">
+        <%= f.submit "Enter" %>
+        </button>
+      </div>
+
+    </div>
+
   <% end %>
 </div>

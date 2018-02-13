@@ -1,7 +1,5 @@
 <div class="row" style="margin-bottom: 50px">
-  <form>
 
-  </form>
   <%= form_for team do |f| %>
 
     <div class="row">
@@ -14,15 +12,7 @@
     <div class="row">
       <div class="col s6">
           <%= f.label :start_day, "Day of the Week Shifts Will Start"%>
-          <%= f.select :start_day, {
-            :Sunday => 0,
-            :Monday => 1,
-            :Tuesday => 2,
-            :Wednesday => 3,
-            :Thursday => 4,
-            :Friday => 5,
-            :Saturday => 6
-          } %>
+          <%= f.select :start_day, @weekdays %>
 
       </div>
     </div>
@@ -30,7 +20,7 @@
     <div class="row">
       <div class="col s6">
         <%= f.label :shift_length, "Length of Weekly Shift Block (days)" %>
-        <%= f.select :shift_length, [1, 2, 3, 4, 5, 6, 7] %>
+        <%= f.select :shift_length, @shift_length_values %>
       </div>
     </div>
 

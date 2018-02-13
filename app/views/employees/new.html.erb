@@ -1,7 +1,9 @@
-<h4 class="center-align">Create Employee</h4>
+<div style="margin-top: 20px; margin-bottom: 50px">
+  <h4 class="center-align">Create Employee</h4>
 
-<%= render partial: "form", locals: {employee: @employee, teams: @teams} %>
+  <%= render partial: "form", locals: {employee: @employee, teams: @teams} %>
 
-<button class="waves-effect waves-light btn red" >
-  <%= button_to "Cancel", employees_path, method: :get %>
-</button>
+  <button class="waves-effect waves-light btn red" >
+    <%= button_to "Cancel", employees_path, method: :get %>
+  </button>
+</div>

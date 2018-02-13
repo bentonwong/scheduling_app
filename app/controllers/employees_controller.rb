@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  before_action :set_employee, only: [:show, :edit, :update]
 
   def index
     @employees = Employee.all
@@ -11,24 +12,17 @@ class EmployeesController < ApplicationController
 
   def create
     @employee = Employee.new(employee_params)
-    if @employee.save
-      redirect_to @employee
-    else
-      render :new
-    end
+    @employee.save ? (redirect_to @employee) : (render :new)
   end
 
   def show
-    @employee = Employee.find_by_id(params[:id])
   end
 
   def edit
-    @employee = Employee.find_by_id(params[:id])
     @teams = Team.all
   end
 
   def update
-    @employee = Employee.find_by_id(params[:id])
     @employee.update(employee_params)
     redirect_to @employee
   end
@@ -37,6 +31,10 @@ class EmployeesController < ApplicationController
 
     def employee_params
       params.require(:employee).permit(:name, :assignable, :role)
+    end
+
+    def set_employee
+      @employee = Employee.find_by_id(params[:id])
     end
 
 end
