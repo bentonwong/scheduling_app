@@ -1,16 +1,32 @@
-<h1>Teams</h1>
+<h4 class="center-align">Teams</h4>
 
-<div>
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-    </tr>
-    <% @teams.sort_by(&:id).each do |team| %>
-      <tr>
-        <td><%= link_to team.id, team_path(team), method: :get %></td>
-        <td><%= team.name %></td>
-      <tr>
-    <% end %>
-  </table>
+<div class="container">
+  <div class="col s8">
+    <table class="bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @teams.sort_by(&:id).each do |team| %>
+          <tr>
+            <td><%= link_to team.id, team_path(team), method: :get %></td>
+            <td><%= team.name %></td>
+          <tr>
+        <% end %>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+<div class="right-align" style="margin-right:30px; margin-bottom:30px">
+  <div className="fixed-action-btn">
+    <a href="/teams/new" class="btn-floating btn-large red">
+        <i class="material-icons">add</i>
+    </a>
+  </div>
 </div>

@@ -1,20 +1,39 @@
-<h1>Employees</h1>
+<h4 class="center-align">Employees</h4>
 
-<div>
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Admin</th>
-      <th>Assignable?</th>
-    </tr>
-    <% @employees.sort_by(&:id).each do |employee| %>
-      <tr>
-        <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
-        <td><%= employee.name %></td>
-        <td><%= employee.admin %></td>
-        <td><%= employee.assignable %></td>
-      <tr>
-    <% end %>
-  </table>
+<div class="container">
+    <div class="col s8">
+      <table class="bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Admin</th>
+            <th>Assignable?</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @employees.sort_by(&:id).each do |employee| %>
+            <tr>
+              <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
+              <td><%= employee.name %></td>
+              <td><%= employee.admin %></td>
+              <td><%= employee.assignable %></td>
+            <tr>
+          <% end %>
+        </tbody>
+
+      </table>
+    </div>
+
+
+
+</div>
+
+<div class="right-align" style="margin-right:30px; margin-bottom:30px">
+  <div className="fixed-action-btn">
+    <a href="/employees/new" class="btn-floating btn-large red">
+        <i class="material-icons">add</i>
+    </a>
+  </div>
 </div>

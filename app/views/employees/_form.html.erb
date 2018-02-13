@@ -5,7 +5,16 @@
       <%= f.text_field :name %>
     </p>
     <p>
-      <label>Teams</label> <%= f.collection_check_boxes :team_ids, teams, :id, :name do |t| %>
+      <%= f.check_box :assignable %>
+      <%= f.label :assignable, "Assignable?" %>
+    </p>
+    <p>
+      <%= f.check_box :admin %>
+      <%= f.label :admin, "Admin?" %>
+    </p>
+    <p>
+      <label>Teams</label> 
+      <%= f.collection_check_boxes :team_ids, teams, :id, :name do |t| %>
         <p>
           <ul style="list-style-type:none">
             <li>
@@ -15,21 +24,12 @@
         </p>
       <% end %>
     </p>
-    <p>
-      <label>Assignable?</label> <%= f.check_box :assignable %>
-    </p>
-    <p>
-      <label>Admin?</label> <%= f.check_box :admin %>
-    </p>
+
 
     <div>
       <%= f.submit %>
     </div>
 
   <% end %>
-  <div>
-    <%= button_to "Cancel", employees_path, method: :get %>
-  </div>
-
 
 </div>

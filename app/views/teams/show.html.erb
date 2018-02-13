@@ -1,39 +1,42 @@
-<h1>Team Details</h1>
+<h4 class="center-align">Team Details</h4>
 
-<div>
-  <p>
-    Team: <%= @team.name %>
-  </p>
-  <p>
-    Number of Members: <%= @team.employees.length %>
-  </p>
-  <p>
-    id: <%= @team.id %>
-  </p>
+<div class="container">
+  <div class="col s8">
+    <p>
+      Team: <%= @team.name %>
+    </p>
+    <p>
+      Number of Members: <%= @team.employees.length %>
+    </p>
+    <p>
+      id: <%= @team.id %>
+    </p>
+  </div>
+
+  <% if @team.employees.length > 0 %>
+    <div>
+      <table class="striped">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Active?</th>
+        </tr>
+        <% @team.employees.each do |employee| %>
+          <tr>
+            <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
+            <td><%= employee.name %></td>
+            <td><%= employee.assignable %></td>
+          <tr>
+        <% end %>
+      </table>
+    </div>
+  <% else %>
+    <p>
+      This team has no members.
+    </p>
+  <% end %>
 </div>
 
-<% if @team.employees.length > 0 %>
-  <div>
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Active?</th>
-      </tr>
-      <% @team.employees.each do |employee| %>
-        <tr>
-          <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
-          <td><%= employee.name %></td>
-          <td><%= employee.assignable %></td>
-        <tr>
-      <% end %>
-    </table>
-  </div>
-<% else %>
-  <p>
-    This team has no members.
-  </p>
-<% end %>
 
 <div class="btn-group">
   <div>

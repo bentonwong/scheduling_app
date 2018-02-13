@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'session/home'
 
-  get 'session/create'
+  post 'session/create'
 
   get 'session/destroy'
 
