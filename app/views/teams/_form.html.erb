@@ -1,26 +1,43 @@
-<div>
-  <%= form_for team do |f| %>
-    <p>
-      Name: <%= f.text_field :name %>
-    </p>
-    <p>
-      Day of the Week Shifts Will Start: <%= f.select :start_day, {
-        :Sunday => 0,
-        :Monday => 1,
-        :Tuesday => 2,
-        :Wednesday => 3,
-        :Thursday => 4,
-        :Friday => 5,
-        :Saturday => 6
-        }, class: "browser-default" %>
-    </p>
-    <p>
-      Length of Weekly Shift Block (days): <%= f.select :shift_length, [1, 2, 3, 4, 5, 6, 7], class: "input-field" %>
-    </p>
+<div class="row" style="margin-bottom: 50px">
+  <form>
 
-    <div>
-      <%= f.submit %>
+  </form>
+  <%= form_for team do |f| %>
+
+    <div class="row">
+      <div class="col s6">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
     </div>
 
-  <% end %>
-</div>
+    <div class="row">
+      <div class="col s6">
+          <%= f.label :start_day, "Day of the Week Shifts Will Start"%>
+          <%= f.select :start_day, {
+            :Sunday => 0,
+            :Monday => 1,
+            :Tuesday => 2,
+            :Wednesday => 3,
+            :Thursday => 4,
+            :Friday => 5,
+            :Saturday => 6
+          } %>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s6">
+        <%= f.label :shift_length, "Length of Weekly Shift Block (days)" %>
+        <%= f.select :shift_length, [1, 2, 3, 4, 5, 6, 7] %>
+      </div>
+    </div>
+
+  </div>
+
+    <button type="submit" class="waves-effect waves-light btn">
+      <%= f.submit %>
+    </button>
+
+    <% end %>

@@ -14,3 +14,15 @@
  *= require_self
  */
 @import "materialize";
+
+select {
+ display: block;
+}
+
+i.icon-green {
+    color: green;
+}
+
+.icon-white {
+  color: white;
+}

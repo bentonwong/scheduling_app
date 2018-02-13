@@ -5,6 +5,18 @@
     Name: <%= @employee.name %>
   </p>
   <p>
+    Assignable?
+    <% if @employee.assignable %>
+      <i class="material-icons small icon-green">check</i>
+    <% end %>
+  </p>
+  <p>
+    Admin?
+    <% if @employee.admin %>
+      <i class="material-icons small icon-green">check</i>
+    <% end %>
+  </p>
+  <p>
     Teams:
       <% if @employee.teams.length > 0 %>
         <ul>
@@ -15,26 +27,16 @@
           <% end %>
         </ul>
       <% else %>
-        <p>
           This employee is not a member of any team.
-        </p>
       <% end %>
   </p>
-  <p>
-    Assignable? <%= @employee.assignable %>
-  </p>
-  <p>
-    Admin? <%= @employee.admin %>
-  </p>
+
 </div>
 
-<div>
-  <div class="btn-group">
-    <div>
-      <%= button_to "Cancel", employees_path, method: :get %>
-    </div>
-    <div>
-      <%= button_to "Edit", edit_employee_path(@employee) %>
-    </div>
-  </div>
-</div>
+
+<button class="waves-effect waves-light btn">
+      <%= button_to "Go Back", employees_path, method: :get %>
+</button>
+<button class="waves-effect waves-light btn red">
+      <%= button_to "Edit", edit_employee_path(@employee), method: :get  %>
+</button>

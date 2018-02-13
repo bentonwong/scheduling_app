@@ -1,19 +1,27 @@
-<div>
+<div class="row" style="margin-bottom: 50px">
+  <form>
+
+  </form>
   <%= form_for employee do |f| %>
-    <p>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-    </p>
-    <p>
+    <div class="row">
+      <div class="col s6">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+    </div>
+
+    <div class="row">
       <%= f.check_box :assignable %>
       <%= f.label :assignable, "Assignable?" %>
-    </p>
-    <p>
+    </div>
+
+    <div class="row">
       <%= f.check_box :admin %>
       <%= f.label :admin, "Admin?" %>
-    </p>
-    <p>
-      <label>Teams</label> 
+    </div>
+
+    <div class="row">
+      <%= f.label :teams, "Teams" %>
       <%= f.collection_check_boxes :team_ids, teams, :id, :name do |t| %>
         <p>
           <ul style="list-style-type:none">
@@ -23,13 +31,12 @@
           </ul>
         </p>
       <% end %>
-    </p>
-
-
-    <div>
-      <%= f.submit %>
     </div>
 
-  <% end %>
-
 </div>
+
+  <button type="submit" class="waves-effect waves-light btn">
+    <%= f.submit %>
+  </button>
+
+  <% end %>

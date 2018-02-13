@@ -1,21 +1,28 @@
 <h4 class="center-align">Team Details</h4>
 
-<div class="container">
-  <div class="col s8">
-    <p>
-      Team: <%= @team.name %>
-    </p>
-    <p>
-      Number of Members: <%= @team.employees.length %>
-    </p>
-    <p>
-      id: <%= @team.id %>
-    </p>
-  </div>
+<div style="margin-bottom: 20px">
+  <p>
+    Team: <%= @team.name %>
+  </p>
+  <p>
+    Number of Members: <%= @team.employees.length %>
+  </p>
+  <p>
+    Day of the Week Shifts Start: <%= @team.start_day_as_string %>
+  </p>
+  <p>
+    Length of Weekly Shift Block (days): <%= @team.shift_length %>
+  </p>
+  <p>
+    id: <%= @team.id %>
+  </p>
 
   <% if @team.employees.length > 0 %>
     <div>
-      <table class="striped">
+      <p>
+        Members
+      </p>
+      <table class="striped" style="margin-top: 20px">
         <tr>
           <th>ID</th>
           <th>Name</th>
@@ -37,12 +44,9 @@
   <% end %>
 </div>
 
-
-<div class="btn-group">
-  <div>
-    <%= button_to "Cancel", teams_path, method: :get %>
-  </div>
-  <div>
-    <%= button_to "Edit", edit_team_path(@team) %>
-  </div>
-</div>
+<button class="waves-effect waves-light btn">
+      <%= button_to "Go Back", teams_path, method: :get%>
+</button>
+<button class="waves-effect waves-light btn red">
+      <%= button_to "Edit", edit_team_path(@team), method: :get %>
+</button>
