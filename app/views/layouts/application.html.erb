@@ -18,7 +18,10 @@
   <body>
     <nav>
       <div class="nav-wrapper">
-          <a href="#" class="left brand-logo" style="padding-left: 20px">WhenUWork</a>
+          <a href="/" class="left brand-logo" style="padding-left: 20px">WhenUWork</a>
+          <% if current_user %>
+            <a href="/logout" class="right" style="margin-right: 20px">Logout</a>
+          <% end %>
       </div>
     </nav>
 

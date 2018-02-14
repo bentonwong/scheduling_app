@@ -1,5 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update]
+  before_action :authorized?
 
   def index
     @employees = Employee.all
@@ -25,6 +26,12 @@ class EmployeesController < ApplicationController
   def update
     @employee.update(employee_params)
     redirect_to @employee
+  end
+
+  def dashboard
+  end
+
+  def swap
   end
 
   private

@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
-  get 'session/home'
+  get '/logout', to: 'session#destroy', as: 'logout'
 
-  post 'session/create'
+  get '/dashboard', to: 'employees#dashboard', as: 'dashboard'
 
-  get 'session/destroy'
-
+  get '/swap', to: 'employees#swap', as: 'swap'
 
   resources :employees
   resources :teams do
     resources :shifts
   end
+  resources :session, only: [:home, :create, :destroy]
+
+  root 'session#home'
+
+
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
