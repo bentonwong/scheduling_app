@@ -2,6 +2,6 @@
 
 <%= render partial: "form", locals: {team: @team} %>
 
-<button class="waves-effect waves-light btn red" >
-  <%= button_to "Cancel", team_path(@team), method: :get %>
+<button class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50" data-tooltip="Cancel" style="margin-left:1em">
+    <i class="material-icons icon-white"><%= link_to "cancel", team_path(@team), method: :get, class: "icon-white" %></i>
 </button>

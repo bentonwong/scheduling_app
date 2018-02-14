@@ -1,21 +1,37 @@
 <h4 class="center-align">Team Details</h4>
 
 <div style="margin-bottom: 20px">
-  <p>
-    Team: <%= @team.name %>
-  </p>
-  <p>
-    Number of Members: <%= @team.employees.length %>
-  </p>
-  <p>
-    Day of the Week Shifts Start: <%= @team.start_day_as_string %>
-  </p>
-  <p>
-    Length of Weekly Shift Block (days): <%= @team.shift_length %>
-  </p>
-  <p>
-    id: <%= @team.id %>
-  </p>
+  <div class="row">
+    <div class="col s6">
+      <p>
+        Team: <%= @team.name %>
+      </p>
+      <p>
+        Number of Members: <%= @team.employees.length %>
+      </p>
+      <p>
+        Day of the Week Shifts Start: <%= @team.start_day_as_string %>
+      </p>
+      <p>
+        Length of Weekly Shift Block (days): <%= @team.shift_length %>
+      </p>
+      <p>
+        id: <%= @team.id %>
+      </p>
+    </div>
+    <div class="col s6" style="margin-top: 50px">
+      <button class="waves-effect waves-light blue btn-floating btn-large tooltipped" data-position="bottom" data-delay="50" data-tooltip="See shifts">
+        <i class="material-icons icon-white"><%= button_to "schedule", team_shifts_path(@team), method: :get%></i>
+      </button>
+      <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Go back" style="margin-left:1em">
+        <i class="material-icons icon-white"><%= button_to "arrow_back", teams_path, method: :get %></i>
+      </button>
+      <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit team details" style="margin-left:1em">
+        <i class="material-icons icon-white"><%= button_to "edit", edit_team_path(@team), method: :get  %></i>
+      </button>
+    </div>
+  </div>
+
 
   <% if @team.employees.length > 0 %>
     <div>
@@ -43,10 +59,3 @@
     </p>
   <% end %>
 </div>
-
-<button class="waves-effect waves-light btn">
-      <%= button_to "Go Back", teams_path, method: :get%>
-</button>
-<button class="waves-effect waves-light btn red">
-      <%= button_to "Edit", edit_team_path(@team), method: :get %>
-</button>

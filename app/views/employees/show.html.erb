@@ -33,10 +33,10 @@
 
 </div>
 
-
-<button class="waves-effect waves-light btn">
-      <%= button_to "Go Back", employees_path, method: :get %>
+<button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Go back" style="margin-top:2em">
+    <i class="material-icons icon-white"><%= button_to "arrow_back", employees_path, method: :get %></i>
 </button>
-<button class="waves-effect waves-light btn red">
-      <%= button_to "Edit", edit_employee_path(@employee), method: :get  %>
+<button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit employee details" style="margin-left:1em; margin-top:2em">
+
+      <i class="material-icons icon-white"><%= button_to "edit", edit_employee_path(@employee), method: :get  %></i>
 </button>
