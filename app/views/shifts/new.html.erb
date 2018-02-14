@@ -1,1 +1,48 @@
-<h1>Create Shift</h1>
+<h4 class="center-align">Create Shift</h4>
+
+  <%= form_for @shift, :url => url_for(:controller => 'shifts', :action => 'create') do |f| %>
+
+    <div class="container">
+      <div class="row" style="padding: 50px 0">
+
+        <div class="col s6" style="padding: 10px 0px; text-align: right">
+          <%= f.radio_button :assignment_method, 'manual' %>
+          <%= f.label :assignment_method_manual, "Manually assign next open shift to" %>
+        </div>
+
+        <div class="col s6">
+          <%= f.select :employee_id, @employee_list %>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col s6" style="padding: 10px 0px; text-align: right">
+          <%= f.radio_button :assignment_method, 'auto' %>
+          <%= f.label :assignment_method_auto, "Randomly assign to next" %>
+        </div>
+
+        <div class="col s2">
+          <%= f.select :weeks_to_assign, options_for_select(@weeks_array, @weeks_array[0]) %>
+        </div>
+
+        <div class="col s4" style="padding: 11px 0px; text-align: left">
+          <label style="font-size: 14px">open shift(s)</label>
+        </div>
+      </div>
+    </div>
+
+    <%= f.hidden_field :team_id, value: @team_id %>
+
+    <div class="row" style="margin: 100px 50px">
+      <div class="col s12 right-align">
+        <button type="submit" class="waves-effect waves-light btn">
+          <%= f.submit %>
+        </button>
+      </div>
+    </div>
+
+
+
+
+  <% end %>

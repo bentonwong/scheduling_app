@@ -2,6 +2,7 @@ class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update]
   before_action :import_weekday_hash, only: [:new, :edit]
   before_action :authorized?
+  before_action :employee_authorized?
 
   def index
     @teams = Team.all

@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
-  before_action :set_employee, only: [:show, :edit, :update]
+  before_action :set_employee, only: [:show, :edit, :update, :dashboard, :swap]
   before_action :authorized?
+  before_action :employee_authorized?, except: [:dashboard, :swap]
 
   def index
     @employees = Employee.all

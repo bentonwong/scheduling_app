@@ -18,4 +18,8 @@ module ApplicationHelper
       redirect_to root_path if !signed_in?
     end
 
+    def employee_authorized?
+      redirect_to root_path if !current_user_admin?
+    end
+
 end
