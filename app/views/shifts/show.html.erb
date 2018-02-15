@@ -14,11 +14,15 @@
 
 <p>
   Shift Dates:
+    <ul class="collection">
+      <% @shift.days.each do |day| %>
+        <li class="collection-item">
+          <%= day.value %> <%= day.holiday %> <%= day.workday %>
+        </li>
+      <% end %>
+    </ul>
 
-    <% @shift.days do |day| %>
 
-        <%= day.value %>
 
-    <% end %>
 
 </p>
