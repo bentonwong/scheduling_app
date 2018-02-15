@@ -8,13 +8,13 @@ class ShiftsController < ApplicationController
   def new
     @shift = Shift.new
     @team_id = params[:team_id]
-    @employee_list = Shift.assignable_employee_list(@team_id)
+    @employee_list = Shift.assignable_employee_hash(@team_id)
     @weeks_array = Shift.weeks_array
   end
 
   def create
-    #@shift = Shift.new(shift_params)
-    @shift.save ? (redirect_to team_shifts) : (re)
+    Shift.create_new_shifts(*shift_params)
+    redirect_to team_shifts_path
   end
 
   private

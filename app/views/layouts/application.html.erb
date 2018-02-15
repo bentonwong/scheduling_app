@@ -20,7 +20,10 @@
       <div class="nav-wrapper">
           <a href="/" class="left brand-logo" style="padding-left: 20px">WhenUWork</a>
           <% if current_user %>
-            <a href="/logout" class="right" style="margin-right: 20px">Logout</a>
+            <div class="right">
+              Hi, <%= current_user.name %>!
+              <a href="/logout" style="margin:0 20px">Logout</a>
+            </div>
           <% end %>
       </div>
     </nav>
