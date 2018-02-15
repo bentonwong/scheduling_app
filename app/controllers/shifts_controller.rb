@@ -13,7 +13,7 @@ class ShiftsController < ApplicationController
   end
 
   def create
-    Shift.create_new_shifts(*shift_params)
+    Shift.create_shift(*shift_params)
     redirect_to team_shifts_path
   end
 

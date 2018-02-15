@@ -13,9 +13,7 @@ class Day < ApplicationRecord
 
   def self.upcoming_shifts_by_team(team)
     days = self.where("value > ?", Date.today)
-    days.select do |day|
-      day.shift.team = team
-    end
+    days.select { |day| day.shift.team === team }
   end
 
 end

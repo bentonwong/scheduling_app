@@ -8,6 +8,7 @@ class Shift < ApplicationRecord
   attr_accessor :assignment_method, :weeks_to_assign
 
   WEEKS_ARRAY = (1..10).to_a
+  WEEKS_TO_ASSIGN_MANUAL = 1
 
   def self.weeks_array
     WEEKS_ARRAY
@@ -24,54 +25,50 @@ class Shift < ApplicationRecord
     employee_hash
   end
 
-  def self.create_new_shifts(args)
+  def self.create_shift(args)
     assignment_method, weeks_to_assign, employee_id, team_id = args.values_at(:assignment_method, :weeks_to_assign, :employee_id, :team_id)
-
     team = Team.find_by_id(team_id)
-    employee = Employee.find_by_id(employee_id)
-
     if assignment_method === 'manual'
       employee = Employee.find_by_id(employee_id)
-      new_shift = self.assign_shift(1, team, employee)
+      self.set_shift_details(WEEKS_TO_ASSIGN_MANUAL, team, employee)
     else
-      new_shift = self.assign_shift(weeks_to_assign, team)
+      self.set_shift_details(weeks_to_assign.to_i, team)
     end
   end
 
-  def self.assign_shift(weeks_to_assign, team, employee=nil)
+  def self.set_shift_details(weeks_to_assign, team, employee=nil)
+    upcoming_shifts_cache = Day.upcoming_shifts_by_team(team).collect {|day| day.value }
     weeks_to_assign.times do
       new_shift = Shift.new
       new_shift.team = team
-      if !employee
-        new_shift_employee = assignable_employee_array(team.id).sample
-      else
-        new_shift.employee = employee
-      end
-      self.set_shift_dates(team).each do |day|
+      !employee ? (new_shift.employee = assignable_employee_array(team.id).sample) : (new_shift.employee = employee)
+      open_dates = self.find_next_open_dates(team, upcoming_shifts_cache)
+      open_dates.each do |day|
         new_shift.days.build(value: day, holiday: Day.holiday?(day))
+        upcoming_shifts_cache << day
       end
       new_shift.save
     end
   end
 
-  def self.set_shift_dates(team)
+  def self.find_next_open_dates(team, cache)
     team_start_day, shift_length, team_id = team.start_day, team.shift_length, team.id
-    next_start_day = Day.date_of_next(team_start)
+    next_start_day = Day.date_of_next(team_start_day)
     finalized = false
     while !finalized do
-      proposed_shift_days = []
+      proposed_shift_dates = []
+      day = next_start_day
       shift_length.times do
-        proposed_shift_days << next_start_day
-        next_start_day += 1
+        proposed_shift_dates << day
+        day += 1
       end
-      upcoming_shifts = Day.upcoming_shifts_by_team(team)
-      if upcoming_shifts.all? { |shift| proposed_shift_days.include?(shift.value)}
-        next_start_day += 7
-      else
+      if proposed_shift_dates.all? { |date| !cache.include?(date) }
         finalized = true
+      else
+        next_start_day += 7
       end
     end
-    proposed_shift_days
+    proposed_shift_dates
   end
 
 end
