@@ -2,7 +2,7 @@ class ShiftsController < ApplicationController
   before_action :authorized?
 
   def index
-    @shifts = Shift.all
+    @shifts = Shift.current_and_upcoming_shifts(5)
   end
 
   def new
@@ -15,6 +15,11 @@ class ShiftsController < ApplicationController
   def create
     Shift.create_shift(*shift_params)
     redirect_to team_shifts_path
+  end
+
+  def show
+    @shift = Shift.find_by_id(params[:id])
+    
   end
 
   private

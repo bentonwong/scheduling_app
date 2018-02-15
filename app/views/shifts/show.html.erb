@@ -1,0 +1,24 @@
+<h4 class="center-align">Shift Details</h4>
+
+<p>
+  id: <%= @shift.id %>
+</p>
+
+<p>
+  Employee: <%= link_to @shift.employee.name, employee_path(@shift.employee), method: :get %>
+</p>
+
+<p>
+  Team: <%= link_to @shift.team.name, team_path(@shift.team), method: :get %>
+</p>
+
+<p>
+  Shift Dates:
+
+    <% @shift.days do |day| %>
+
+        <%= day.value %>
+
+    <% end %>
+
+</p>

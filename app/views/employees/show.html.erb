@@ -19,9 +19,9 @@
   <p>
     Teams:
       <% if @employee.teams.length > 0 %>
-        <ul>
+        <ul class="collection">
           <% @employee.teams.each do |team| %>
-            <li>
+            <li class="collection-item">
               <%= link_to team.name, team_path(team), method: :get %>
             </li>
           <% end %>

@@ -1,16 +1,30 @@
 <h1>Shifts</h1>
 
 <div>
-  <table>
-    <tr>
-      <th>ID</th>
-    </tr>
-    <% @shifts.each do |shift| %>
+
+    <% if @shifts.length === 0 %>
+      <p>There are no shifts for this team.</p>
+    <% else %>
+    <h5 class="center-align">Current and Upcoming Shifts</h5>
+    <table>
       <tr>
-        <td><%= shift.id %></td>
-      <tr>
+        <th>ID</th>
+        <th>Employee Name</th>
+        <th>Starting</th>
+        <th>Ending</th>
+        <th>Holidays</th>
+      </tr>
+      <% @shifts.each do |shift| %>
+        <tr>
+          <td><%= link_to shift.id, team_shift_path(team_id: shift.team_id, id: shift.id), method: :get %></td>
+          <td><%= shift.employee.name %></td>
+          <td><%= shift.collect_days.min %></td>
+          <td><%= shift.collect_days.max %></td>
+          <td><%= shift.select_holidays.join(', ') %></td>
+        <tr>
     <% end %>
-  </table>
+    </table>
+  <% end %>
 </div>
 
 <div class="right-align" style="margin-right:30px; margin-bottom:30px">
