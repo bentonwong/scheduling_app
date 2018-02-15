@@ -56,22 +56,21 @@ class Shift < ApplicationRecord
 
   def self.set_shift_dates(team)
     team_start_day, shift_length, team_id = team.start_day, team.shift_length, team.id
-
-    next_start_day = Day.date_of_next(team_start_day)
-
-    proposed_shift_days = []
-
-    shift_length.times do
-      proposed_shift_days << next_start_day
-      next_start_day += 1
+    next_start_day = Day.date_of_next(team_start)
+    finalized = false
+    while !finalized do
+      proposed_shift_days = []
+      shift_length.times do
+        proposed_shift_days << next_start_day
+        next_start_day += 1
+      end
+      upcoming_shifts = Day.upcoming_shifts_by_team(team)
+      if upcoming_shifts.all? { |shift| proposed_shift_days.include?(shift.value)}
+        next_start_day += 7
+      else
+        finalized = true
+      end
     end
-
-    #do the overlap check at this point
-    #if overlap, then update next_start_date to following week
-    #else break out of loop
-    
-    #3 - check if proposed shift dates overlaps any current or upcoming shifts [an array]
-
     proposed_shift_days
   end
 

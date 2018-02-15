@@ -6,9 +6,16 @@ class Day < ApplicationRecord
   end
 
   def self.date_of_next(day)
-    date  = Date.parse(Date::DAYNAMES[day])
+    date = Date.parse(Date::DAYNAMES[day])
     delta = date > Date.today ? 0 : 7
     date + delta
+  end
+
+  def self.upcoming_shifts_by_team(team)
+    days = self.where("value > ?", Date.today)
+    days.select do |day|
+      day.shift.team = team
+    end
   end
 
 end
