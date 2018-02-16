@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :shifts
   end
   resources :session, only: [:home, :create, :destroy]
+  resource :calendar, only: [:show], controller: :calendar
 
   root 'session#home'
 
