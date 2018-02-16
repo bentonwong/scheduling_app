@@ -1,0 +1,31 @@
+<div class="container" style="margin: 3em 0">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <div class="well controls">
+        <%= link_to team_shifts_path(date: date - 1.month), class: "btn btn-default" do %>
+          <i class="glyphicon glyphicon-backward"></i>
+        <% end %>
+        <%= "#{date.strftime("%B")} #{date.year}" %>
+        <%= link_to team_shifts_path(date: date + 1.month), class: "btn btn-default" do %>
+          <i class="glyphicon glyphicon-forward"></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= calendar date do |date| %>
+        <%= date.day %>
+        <% if events_by_date[date] %>
+          <ul>
+            <% events_by_date[date].each do |event| %>
+
+              <li><%= link_to Shift.find_by_id(event.shift_id).employee.name + " | " + Shift.find_by_id(event.shift_id).team.name, team_shift_path(team_id: Shift.find_by_id(event.shift_id).team_id, id: event.shift_id), method: :get %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+</div>

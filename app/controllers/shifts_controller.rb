@@ -1,9 +1,12 @@
 class ShiftsController < ApplicationController
   before_action :authorized?
+  before_action :employee_authorized?
 
   def index
+    team_shift_ids = Team.collect_shift_ids_by_team(params[:team_id])
+    @events_by_date = Day.where(shift_id: team_shift_ids).group_by(&:value)
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @shifts = Shift.current_and_upcoming_shifts(5)
-    @shift = Shift.new
   end
 
   def new

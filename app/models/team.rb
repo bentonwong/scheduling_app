@@ -35,4 +35,8 @@ class Team < ApplicationRecord
     SHIFT_LENGTH_VALUES
   end
 
+  def self.collect_shift_ids_by_team(team_id)
+    Team.find_by_id(team_id).shifts.collect { |shift| shift.id }.uniq
+  end
+
 end
