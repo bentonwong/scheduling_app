@@ -1,42 +1,50 @@
 <h4 class="center-align">Employee Details</h4>
 
-<div>
-  <p>
-    Name: <%= @employee.name %>
-  </p>
-  <p>
-    Assignable?
-    <% if @employee.assignable %>
-      <i class="material-icons small icon-green">check</i>
-    <% end %>
-  </p>
-  <p>
-    Admin?
-    <% if @employee.admin %>
-      <i class="material-icons small icon-green">check</i>
-    <% end %>
-  </p>
-  <p>
-    Teams:
-      <% if @employee.teams.length > 0 %>
-        <ul class="collection">
-          <% @employee.teams.each do |team| %>
-            <li class="collection-item">
-              <%= link_to team.name, team_path(team), method: :get %>
-            </li>
-          <% end %>
-        </ul>
-      <% else %>
-          This employee is not a member of any team.
+<div style="margin-bottom: 20px">
+  <div class="row">
+    <div class="col s9">
+      <p>
+        id: <%= @employee.id %>
+      </p>
+      <p>
+        Name: <%= @employee.name %>
+      </p>
+      <p>
+        Assignable? <% if @employee.assignable %>
+          <i class="material-icons small icon-green" style="vertical-align: bottom">check</i>
+        <% end %>
+      </p>
+      <p>
+        Admin?
+        <% if @employee.admin %>
+          <i class="material-icons small icon-green" style="vertical-align: bottom">check</i>
+        <% end %>
+      </p>
+    </div>
+    <div class="col s3" style="margin-top: 25px">
+      <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Go back" style="margin-left:1em">
+        <i class="material-icons icon-white"><%= button_to "arrow_back", employees_path, method: :get %></i>
+      </button>
+      <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit employee details" style="margin-left:1em">
+        <i class="material-icons icon-white"><%= button_to "edit", edit_employee_path(@employee), method: :get  %></i>
+      </button>
+    </div>
+  </div>
+
+  <% if @employee.teams.length > 0 %>
+    <p>
+      Teams:
+    </p>
+    <ul class="collection">
+      <% @employee.teams.each do |team| %>
+        <li class="collection-item">
+          <%= link_to team.name, team_path(team), method: :get %>
+        </li>
       <% end %>
-  </p>
-
+    </ul>
+  <% else %>
+      <p>
+        This employee is not a member of any team.
+      </p>
+  <% end %>
 </div>
-
-<button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Go back" style="margin-top:2em">
-    <i class="material-icons icon-white"><%= button_to "arrow_back", employees_path, method: :get %></i>
-</button>
-<button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit employee details" style="margin-left:1em; margin-top:2em">
-
-      <i class="material-icons icon-white"><%= button_to "edit", edit_employee_path(@employee), method: :get  %></i>
-</button>

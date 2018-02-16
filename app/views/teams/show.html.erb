@@ -2,7 +2,10 @@
 
 <div style="margin-bottom: 20px">
   <div class="row">
-    <div class="col s6">
+    <div class="col s8">
+      <p>
+        id: <%= @team.id %>
+      </p>
       <p>
         Team: <%= @team.name %>
       </p>
@@ -15,18 +18,15 @@
       <p>
         Length of Weekly Shift Block (days): <%= @team.shift_length %>
       </p>
-      <p>
-        id: <%= @team.id %>
-      </p>
     </div>
-    <div class="col s6" style="margin-top: 50px">
+    <div class="col s4" style="margin-top: 50px">
       <button class="waves-effect waves-light blue btn-floating btn-large tooltipped" data-position="bottom" data-delay="50" data-tooltip="See shifts">
         <i class="material-icons icon-white"><%= button_to "schedule", team_shifts_path(@team), method: :get%></i>
       </button>
       <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Go back" style="margin-left:1em">
         <i class="material-icons icon-white"><%= button_to "arrow_back", teams_path, method: :get %></i>
       </button>
-      <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit team details" style="margin-left:1em">
+      <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit shift details" style="margin-left:1em">
         <i class="material-icons icon-white"><%= button_to "edit", edit_team_path(@team), method: :get  %></i>
       </button>
     </div>
@@ -39,11 +39,15 @@
         Members
       </p>
       <table class="striped" style="margin-top: 20px">
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Active?</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Active?</th>
+          </tr>
+        </thead>
+
+        <tbody>
         <% @team.employees.each do |employee| %>
           <tr>
             <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
@@ -51,6 +55,7 @@
             <td><%= employee.assignable %></td>
           <tr>
         <% end %>
+        </tbody>
       </table>
     </div>
   <% else %>
