@@ -5,7 +5,7 @@ class Shift < ApplicationRecord
   belongs_to :team
   belongs_to :employee
 
-  attr_accessor :assignment_method, :weeks_to_assign
+  attr_accessor :assignment_method, :weeks_to_assign, :selected_date
 
   WEEKS_ARRAY = (1..10).to_a
   WEEKS_TO_ASSIGN_MANUAL = 1

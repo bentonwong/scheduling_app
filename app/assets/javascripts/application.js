@@ -24,3 +24,8 @@ $(document).ready(function() {
 $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50});
   });
+
+$('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 20 // Creates a dropdown of 20 years to control year
+});

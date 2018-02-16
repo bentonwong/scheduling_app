@@ -1,6 +1,15 @@
-<h1>Shifts</h1>
+<h4>Shifts</h4>
 
 <div>
+    <p>
+      Pick a date:
+    </p>
+
+    <%= form_for @shift, :url => {:controller => 'shifts', :action => 'show_by_date'} do |f| %>
+      <%= f.date_field :selected_date, class: 'datepicker' %>
+      <%= f.submit "Get Shift Details"%>
+    <% end %>
+
 
     <% if @shifts.length === 0 %>
       <p>There are no shifts for this team.</p>

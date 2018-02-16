@@ -3,6 +3,7 @@ class ShiftsController < ApplicationController
 
   def index
     @shifts = Shift.current_and_upcoming_shifts(5)
+    @shift = Shift.new
   end
 
   def new
@@ -25,10 +26,16 @@ class ShiftsController < ApplicationController
     @shift = Shift.find_by_id(params[:id])
   end
 
+  def show_by_date
+    date = shift_params[:selected_date]
+    shift = Day.find_by(value: date).shift
+    redirect_to team_shift_path(team_id: shift.team_id, id: shift.id)
+  end
+
   private
 
     def shift_params
-      params.require(:shift).permit(:assignment_method, :weeks_to_assign, :employee_id, :team_id)
+      params.require(:shift).permit(:assignment_method, :weeks_to_assign, :employee_id, :team_id, :selected_date)
     end
 
 end
