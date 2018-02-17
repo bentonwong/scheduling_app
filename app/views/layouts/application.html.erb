@@ -2,11 +2,11 @@
 <html>
   <head>
     <title>WhenUWork</title>
-    
+
+    <!---<%= javascript_include_tag "http://yandex.st/bootstrap/3.0.2/js/bootstrap.min.js" %>-->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag "http://yandex.st/bootstrap/3.0.2/css/bootstrap.min.css", media: "all" %>
-    <%= javascript_include_tag "http://yandex.st/bootstrap/3.0.2/js/bootstrap.min.js" %>
+    <link rel="stylesheet" href="https://toert.github.io/Isolated-Bootstrap/versions/4.0.0-beta/iso_bootstrap4.0.0min.css">
     <%= csrf_meta_tags %>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -22,10 +22,20 @@
       <div class="nav-wrapper">
           <a href="/" class="left brand-logo" style="padding-left: 20px">WhenUWork</a>
           <% if current_user %>
-            <div class="right">
-              Hi, <%= current_user.name %>!
-              <a href="/logout" style="margin:0 20px">Logout</a>
-            </div>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <% if current_user_admin? %>
+                <li><a href="/teams">Teams</a></li>
+                <li><a href="/employees">Employees</a></li>
+                <li>
+                  <%= link_to current_user.name, employee_path(current_user), method: :get %>
+                </li>
+              <% else %>
+                <li style="margin: 0 1em">
+                  <%= current_user.name %>
+                </li>
+              <% end %>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
           <% end %>
       </div>
     </nav>

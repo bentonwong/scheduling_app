@@ -1,57 +1,22 @@
-<h4>Shifts</h4>
+<h4 class="center-align">Shifts</h4>
 
-<div>
+<p class="center-align">Team: <%= link_to @team.name, team_path(@team), method: :get %></p>
+
+<div class="center-align">
+  <div class="container">
     <%= render partial: "calendar", locals: {date: @date, events_by_date: @events_by_date} %>
-
-    <p>
-      Pick a date:
-    </p>
-
-    <% if @shifts.length === 0 %>
-      <p>There are no shifts for this team.</p>
-    <% else %>
-    <h5 class="center-align" style="margin: 1em 0">Current and Upcoming</h5>
-    <table class="highlight">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Employee Name</th>
-          <th>Starting</th>
-          <th>Ending</th>
-          <th>Holidays</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
-
-      <tbody>
-
-
-      <% @shifts.each do |shift| %>
-
-        <% if DateTime.now.between?(shift.collect_days.min, shift.collect_days.max) %>
-          <tr style="color: limegreen; font-weight: bold">
-        <% else %>
-          <tr>
-        <% end %>
-          <td><%= link_to shift.id, team_shift_path(team_id: shift.team_id, id: shift.id), method: :get %></td>
-          <td><%= shift.employee.name %></td>
-          <td><%= shift.collect_days.min %></td>
-          <td><%= shift.collect_days.max %></td>
-          <td><%= shift.select_holidays.join(', ') %></td>
-          <td>
-            <%= Holidays.between(shift.collect_days.min, shift.collect_days.max, :ca, :us).collect {|holiday| holiday[:name]}.join(", ") %>
-          </td>
-        <tr>
-      <% end %>
-      </tbody>
-    </table>
-  <% end %>
+  </div>
 </div>
 
-<div class="right-align" style="margin: 20px 20px">
-  <div className="fixed-action-btn">
-    <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add shift(s)">
-        <i class="material-icons icon-white"><%= link_to "add", new_team_shift_path, method: :get, class: "icon-white" %></i>
-    </button>
+  <div class="row">
+    <div class="col s12">
+      <div class="right-align">
+        <div className="fixed-action-btn">
+          <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="top" data-delay="50" data-tooltip="Add shift(s)">
+              <i class="material-icons icon-white"><%= link_to "add", new_team_shift_path, method: :get, class: "icon-white" %></i>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

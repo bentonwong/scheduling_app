@@ -72,26 +72,4 @@ class Shift < ApplicationRecord
     proposed_shift_dates.sort
   end
 
-  def collect_days
-    self.days.collect {|day| day.value }
-  end
-
-  def select_holidays
-    self.days.select{|day| day.holiday }.collect {|day| day.value }
-  end
-
-  def self.current_and_upcoming_shifts(n)
-    results = {}
-    upcoming_shifts = self.joins(:days).where("days.value >= ?", Date.today).uniq
-    upcoming_shifts.each do |shift|
-      dates_array = shift.days.collect do |day|
-        day.value
-      end
-      results[shift.id] = dates_array.sort.first
-    end
-    next_n_shifts_start_dates_ids = results.sort_by {|key, value| value}[0..n-1]
-    next_n_shifts_ids = next_n_shifts_start_dates_ids.collect { |shift| shift.first }
-    next_n_shifts_ids.collect { |id| Shift.find_by_id(id) }
-  end
-
 end
