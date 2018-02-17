@@ -41,7 +41,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @shift.days.each do |day| %>
+        <% @shift.get_shift_days.each do |day| %>
           <tr>
             <td><%= day.value %></td>
             <td>

@@ -1,7 +1,7 @@
 require 'date'
 
 class Shift < ApplicationRecord
-  has_many :days
+  has_many :days, :dependent => :destroy
   belongs_to :team
   belongs_to :employee
   accepts_nested_attributes_for :days
@@ -27,7 +27,7 @@ class Shift < ApplicationRecord
   end
 
   def self.set_shift_details(weeks_to_assign, team, employee=nil)
-    upcoming_shifts_cache = Day.upcoming_shifts_by_team(team).collect {|day| day.value }
+    upcoming_shifts_cache = Day.upcoming_shifts_by_team(team).collect { |day| day.value }
     weeks_to_assign.times do
       new_shift = Shift.new
       new_shift.team = team
@@ -60,6 +60,10 @@ class Shift < ApplicationRecord
       end
     end
     proposed_shift_dates.sort
+  end
+
+  def get_shift_days
+    self.days.sort_by{ |day| day.value }
   end
 
 end

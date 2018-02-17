@@ -33,4 +33,4 @@ BUG_ENGINEERS.each do |employee|
 end
 @bug_engineering_team.save
 
-Employee.create(name:'*** ADMIN ***', assignable: false, admin: true);
+Employee.create(name:'ADMIN MODE', assignable: false, admin: true);

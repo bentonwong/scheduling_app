@@ -31,10 +31,16 @@ class ShiftsController < ApplicationController
   end
 
   def update
-    raise params.inspect
+    @shift.update(shift_params)
+    if @shift.save
+        redirect_to team_shift_path(@shift)
+      else
+        redirect_to team_shift_path(@shift)
+      end
   end
 
   def destroy
+    @shift.days.destroy
     @shift.destroy
     redirect_to team_shifts_path(params[:team_id])
   end
@@ -42,7 +48,7 @@ class ShiftsController < ApplicationController
   private
 
     def shift_params
-      params.require(:shift).permit(:assignment_method, :weeks_to_assign, :employee_id, :team_id, :selected_date)
+      params.require(:shift).permit(:assignment_method, :weeks_to_assign, :employee_id, :team_id, :selected_date, days_attributes: [:id, :workday])
     end
 
     def set_shift
