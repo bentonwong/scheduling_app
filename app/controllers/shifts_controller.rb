@@ -31,6 +31,15 @@ class ShiftsController < ApplicationController
     @employees = Shift.assignable_employee_hash(@team_id)
   end
 
+  def update
+    raise params.inspect
+  end
+
+  def destroy
+    session.delete :id
+    redirect_to team_shifts_path(params[:team_id])
+  end
+
   private
 
     def shift_params

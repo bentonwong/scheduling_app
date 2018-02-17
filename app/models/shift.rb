@@ -4,6 +4,7 @@ class Shift < ApplicationRecord
   has_many :days
   belongs_to :team
   belongs_to :employee
+  accepts_nested_attributes_for :days
 
   attr_accessor :assignment_method, :weeks_to_assign, :selected_date
 

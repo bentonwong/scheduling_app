@@ -17,7 +17,7 @@
       <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Go back" style="margin-left:1em">
         <i class="material-icons icon-white"><%= button_to "arrow_back", team_shifts_path((@shift.team)), method: :get %></i>
       </button>
-      <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit team details" style="margin-left:1em">
+      <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit shift details" style="margin-left:1em">
         <i class="material-icons icon-white"><%= button_to "edit", edit_team_shift_path(team_id: @shift.team_id, id: @shift.id), method: :get  %></i>
       </button>
     </div>

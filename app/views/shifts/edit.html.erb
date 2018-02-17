@@ -26,58 +26,67 @@
     </div>
   </div>
 
+  <p>
+    Workdays
+  </p>
 
-<%= form_for @shift, :url => {:action => "update"} do |f| %>
-  <%= f.collection_check_boxes :day_ids, Day.where(shift_id: @shift.id), :id, :holiday %>
-<% end %>
-
-
-
-  <!--<% if @shift.days.length > 0 %>
-    <div>
-      <table class="highlight" style="margin-bottom: 50px">
-        <thead>
+  <div>
+    <table class="highlight" style="margin-top: 20px">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>
+            Day of the Week
+          </th>
+          <th>Workday</th>
+          <th>Holiday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @shift.days.each do |day| %>
           <tr>
-            <th>Date</th>
-            <th>Workday</th>
-            <th>Holiday?</th>
-            <th>Notes</th>
+            <td><%= day.value %></td>
+            <td>
+              <%= day.value.strftime('%A') %>
+            </td>
+            <td>
+              <%= f.fields_for :days, day do |day_field| %>
+                <p>
+                  <ul style="list-style-type:none">
+                    <li>
+                      <div class="row">
+                      <%= day_field.check_box :workday%>
+                      <%= day_field.label :workday, "click to change" %>
+                      </div>
+                    </li>
+                  </ul>
+                </p>
+              <% end %>
+            </td>
+            <td>
+              <%= Holidays.on(day.value, :us, :ca).collect {|holiday| holiday[:name]}.join(', ') %>
+            </td>
           </tr>
-        </thead>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-        <tbody>
+  <div class="left-align" style="margin: 2em 0">
+    <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="top" data-delay="50" data-tooltip="Save" style="margin-left:1em; margin-bottom:">
+        <i class="material-icons icon-white"><%= f.submit "save"%></i>
+    </button>
 
+    <% end %>
 
-          <%= f.collection_check_boxes :day_ids, Day.where(shift_id: @shift.id), :id, :workday %>
-          <%= f.fields_for :days, @shift.days.build do |days_fields| %>
-            <%= days_fields.check_box :workday %>
-          <% end %>
+    <button class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50" data-tooltip="Cancel" style="margin-left:1em">
+        <i class="material-icons icon-white"><%= link_to "cancel", team_shifts_path(@team_id), method: :get, class: "icon-white" %></i>
+    </button>
 
-          <%= f.collection_check_boxes :day_ids, Day.where(shift_id: @shift.id), :id, :holiday %>
-          <%= f.fields_for :days, @shift.days.build do |days_fields| %>
-            <%= days_fields.check_box :holiday %>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% else %>
-    <p>
-      This shift has no days.
-    </p>
-  <% end %> -->
+    <button class="btn-floating btn-large green tooltipped" data-position="top" data-delay="50" data-tooltip="Delete" style="margin-left:1em">
+        <i class="material-icons icon-white"><%= link_to "delete", team_shift_path(team_id: @team_id,id: @shift.id), method: :delete, class: "icon-white" %></i>
+    </button>
+  </div>
 
-  <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="top" data-delay="50" data-tooltip="Save" style="margin-left:1em">
-      <i class="material-icons icon-white"><%= f.submit "save"%></i>
-  </button>
-
-  <% end %>
-
-  <button class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50" data-tooltip="Cancel" style="margin-left:1em">
-      <i class="material-icons icon-white"><%= link_to "cancel", team_shifts_path(@team_id), method: :get, class: "icon-white" %></i>
-  </button>
-
-  <button class="btn-floating btn-large green tooltipped" data-position="top" data-delay="50" data-tooltip="Delete" style="margin-left:1em">
-      <i class="material-icons icon-white"><%= link_to "delete", team_shift_path(team_id: @team_id,id: @shift.id), method: :delete, class: "icon-white" %></i>
-  </button>
 
 </div>
