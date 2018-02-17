@@ -26,7 +26,9 @@ class ShiftsController < ApplicationController
   end
 
   def edit
+    @team_id = params[:team_id]
     @shift = Shift.find_by_id(params[:id])
+    @employees = Shift.assignable_employee_hash(@team_id)
   end
 
   private
