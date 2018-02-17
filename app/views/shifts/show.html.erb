@@ -23,16 +23,15 @@
     </div>
   </div>
 
-
   <% if @shift.days.length > 0 %>
     <div>
       <table class="highlight" style="margin-top: 20px">
         <thead>
           <tr>
             <th>Date</th>
+            <th>Day of the Week</th>
             <th>Workday</th>
-            <th>Holiday?</th>
-            <th>Notes</th>
+            <th>Holiday</th>
           </tr>
         </thead>
 
@@ -40,13 +39,9 @@
         <% @shift.days.each do |day| %>
           <tr>
             <td><%= day.value %></td>
+            <td><%= day.get_day_of_the_week %></td>
             <td>
               <% if day.workday %>
-                <i class="material-icons small icon-green">check</i>
-              <% end %>
-            </td>
-            <td>
-              <% if day.holiday %>
                 <i class="material-icons small icon-green">check</i>
               <% end %>
             </td>

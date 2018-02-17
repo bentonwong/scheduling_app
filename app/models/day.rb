@@ -1,8 +1,20 @@
 class Day < ApplicationRecord
   belongs_to :shift
 
-  def self.holiday?(day)
-    Holidays.on(day, :us, :ca).length > 0
+  def get_holiday
+    Holidays.on(self.value, :us, :ca)
+  end
+
+  def holiday?
+    self.get_holiday.length > 0
+  end
+
+  def get_day_of_the_week
+    self.value.strftime('%A')
+  end
+
+  def get_holiday_text
+    self.get_holiday.collect {|holiday| holiday[:name]}.join(", ")
   end
 
   def self.date_of_next(day)

@@ -35,9 +35,7 @@
       <thead>
         <tr>
           <th>Date</th>
-          <th>
-            Day of the Week
-          </th>
+          <th>Day of the Week</th>
           <th>Workday</th>
           <th>Holiday</th>
         </tr>
@@ -47,7 +45,7 @@
           <tr>
             <td><%= day.value %></td>
             <td>
-              <%= day.value.strftime('%A') %>
+              <%= day.get_day_of_the_week %>
             </td>
             <td>
               <%= f.fields_for :days, day do |day_field| %>
@@ -64,7 +62,9 @@
               <% end %>
             </td>
             <td>
-              <%= Holidays.on(day.value, :us, :ca).collect {|holiday| holiday[:name]}.join(', ') %>
+              <div class="orange-text text-darken-3">
+                <%= day.get_holiday_text %>
+              </div>
             </td>
           </tr>
         <% end %>
@@ -80,11 +80,11 @@
     <% end %>
 
     <button class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50" data-tooltip="Cancel" style="margin-left:1em">
-        <i class="material-icons icon-white"><%= link_to "cancel", team_shifts_path(@team_id), method: :get, class: "icon-white" %></i>
+        <i class="material-icons icon-white"><%= link_to "cancel", team_shift_path(team_id: @team_id, id: @shift.id), method: :get, class: "icon-white" %></i>
     </button>
 
     <button class="btn-floating btn-large green tooltipped" data-position="top" data-delay="50" data-tooltip="Delete" style="margin-left:1em">
-        <i class="material-icons icon-white"><%= link_to "delete", team_shift_path(team_id: @team_id,id: @shift.id), method: :delete, class: "icon-white" %></i>
+        <i class="material-icons icon-white"><%= link_to "delete", team_shift_path(team_id: @team_id, id: @shift.id), method: :delete, class: "icon-white" %></i>
     </button>
   </div>
 

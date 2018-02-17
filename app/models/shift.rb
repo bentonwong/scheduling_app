@@ -15,17 +15,6 @@ class Shift < ApplicationRecord
     WEEKS_ARRAY
   end
 
-  def self.assignable_employee_array(team_id)
-    Team.find_by_id(team_id).employees.select { |employee| employee.assignable }
-  end
-
-  def self.assignable_employee_hash(team_id)
-    employee_hash = {}
-    team_list = self.assignable_employee_array(team_id)
-    team_list.each { |employee| employee_hash[employee.name] = employee.id }
-    employee_hash
-  end
-
   def self.create_shift(args)
     assignment_method, weeks_to_assign, employee_id, team_id = args.values_at(:assignment_method, :weeks_to_assign, :employee_id, :team_id)
     team = Team.find_by_id(team_id)
@@ -42,7 +31,7 @@ class Shift < ApplicationRecord
     weeks_to_assign.times do
       new_shift = Shift.new
       new_shift.team = team
-      !employee ? (new_shift.employee = assignable_employee_array(team.id).sample) : (new_shift.employee = employee)
+      !employee ? (new_shift.employee = Employee.assignable_employee_array(team.id).sample) : (new_shift.employee = employee)
       open_dates = self.find_next_open_dates(team, upcoming_shifts_cache)
       open_dates.each do |day|
         holiday_status = Day.holiday?(day)

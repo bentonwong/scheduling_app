@@ -23,20 +23,20 @@ class Team < ApplicationRecord
 
   SHIFT_LENGTH_VALUES = [1, 2, 3, 4, 5, 6, 7]
 
-  def self.reverse_weekday_hash
-    REVERSE_WEEKDAY_HASH
+  def collect_shift_ids_by_team
+    self.shifts.collect { |shift| shift.id }.uniq
   end
 
   def start_day_as_string
     WEEKDAY_HASH[self.start_day]
   end
 
-  def self.shift_length_values
-    SHIFT_LENGTH_VALUES
+  def self.reverse_weekday_hash
+    REVERSE_WEEKDAY_HASH
   end
 
-  def self.collect_shift_ids_by_team(team_id)
-    Team.find_by_id(team_id).shifts.collect { |shift| shift.id }.uniq
+  def self.shift_length_values
+    SHIFT_LENGTH_VALUES
   end
 
 end
