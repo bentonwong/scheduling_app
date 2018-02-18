@@ -3,6 +3,7 @@ class Employee < ApplicationRecord
   has_many :requests
   has_many :shifts
   has_many :teams, through: :team_employees
+  accepts_nested_attributes_for :teams
 
   attr_accessor :init_team_id
 

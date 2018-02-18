@@ -10,12 +10,12 @@
     </div>
 
     <div class="row">
-      <%= f.check_box :assignable %>
+      <%= f.check_box :assignable, class:"filled-in" %>
       <%= f.label :assignable, "Assignable?" %>
     </div>
 
     <div class="row">
-      <%= f.check_box :admin %>
+      <%= f.check_box :admin, class:"filled-in" %>
       <%= f.label :admin, "Admin?" %>
     </div>
 
@@ -25,7 +25,9 @@
         <p>
           <ul style="list-style-type:none">
             <li>
-              <%= t.check_box %> <%= t.label %>
+              <div class="filled-in">
+                <%= t.check_box(class:"filled-in") %> <%= t.label %>
+              </div>
             </li>
           </ul>
         </p>

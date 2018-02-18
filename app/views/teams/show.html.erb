@@ -43,16 +43,20 @@
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Active?</th>
+            <th>Assignable?</th>
           </tr>
         </thead>
 
         <tbody>
-        <% @team.employees.each do |employee| %>
+        <% @team.sorted_team_employees_by_id.each do |employee| %>
           <tr>
             <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
             <td><%= employee.name %></td>
-            <td><%= employee.assignable %></td>
+            <td>
+              <% if employee.assignable %>
+                <i class="material-icons small icon-green" style="vertical-align: bottom">check</i>
+              <% end %>
+            </td>
           <tr>
         <% end %>
         </tbody>

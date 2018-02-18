@@ -7,6 +7,7 @@
         <tr>
           <th>ID</th>
           <th>Name</th>
+          <th>Schedule</th>
         </tr>
       </thead>
 
@@ -15,6 +16,7 @@
           <tr>
             <td><%= link_to team.id, team_path(team), method: :get %></td>
             <td><%= team.name %></td>
+            <td><i class="material-icons icon-white"><%= link_to "grid_on", team_shifts_path(team_id: team.id)%></i></td>
           <tr>
         <% end %>
       </tbody>

@@ -17,8 +17,16 @@
             <tr>
               <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
               <td><%= employee.name %></td>
-              <td><%= employee.admin %></td>
-              <td><%= employee.assignable %></td>
+              <td>
+                <% if employee.admin %>
+                  <i class="material-icons small icon-green">check</i>
+                <% end %>
+              </td>
+              <td>
+                <% if employee.assignable %>
+                  <i class="material-icons small icon-green">check</i>
+                <% end %>
+              </td>
             <tr>
           <% end %>
         </tbody>

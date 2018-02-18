@@ -31,6 +31,18 @@ class Team < ApplicationRecord
     WEEKDAY_HASH[self.start_day]
   end
 
+  def sorted_team_employees_by_id
+    self.employees.sort_by{ |employee| employee.id }
+  end
+
+  def current_shift
+    Day.upcoming_shifts_by_team(self).first
+  end
+
+  def next_shift
+    Day.upcoming_shifts_by_team(self)[1]
+  end
+
   def self.reverse_weekday_hash
     REVERSE_WEEKDAY_HASH
   end
