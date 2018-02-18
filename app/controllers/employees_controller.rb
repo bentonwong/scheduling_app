@@ -1,7 +1,7 @@
 class EmployeesController < ApplicationController
-  before_action :set_employee, only: [:show, :edit, :update, :dashboard, :swap]
+  before_action :set_employee, only: [:show, :edit, :update]
   before_action :authorized?
-  before_action :employee_authorized?, except: [:dashboard, :swap]
+  before_action :employee_authorized?, except: [:dashboard, :shift_details]
 
   def index
     @employees = Employee.all
@@ -30,9 +30,15 @@ class EmployeesController < ApplicationController
   end
 
   def dashboard
+    @employee = current_user
+    #@team = Team.find_by_id(1)
+    #team_shift_ids = @team.collect_shift_ids_by_team
+    #@events_by_date = Day.where(shift_id: team_shift_ids, workday: true).group_by(&:value)
+    #@date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @next_shift_start_end_days = current_user.get_shift_start_end_day_values
   end
 
-  def swap
+  def shift_details
   end
 
   private

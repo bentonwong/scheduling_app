@@ -1,0 +1,61 @@
+<h4 class="center-align">Shift Details</h4>
+
+<div style="margin-bottom: 20px">
+  <div class="row">
+    <div class="col s9">
+      <p>
+        id: <%= shift.id %>
+      </p>
+      <p>
+        Employee: <%= link_to shift.employee.name, employee_path(shift.employee), method: :get %>
+      </p>
+      <p>
+        Team: <%= link_to shift.team.name, team_path(shift.team), method: :get %>
+      </p>
+    </div>
+    <div class="col s3" style="margin-top: 25px">
+      <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Go back" style="margin-left:1em">
+        <i class="material-icons icon-white"><%= button_to "arrow_back", team_shifts_path((shift.team)), method: :get %></i>
+      </button>
+      <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit shift details" style="margin-left:1em">
+        <i class="material-icons icon-white"><%= button_to "edit", edit_team_shift_path(team_id: shift.team_id, id: shift.id), method: :get  %></i>
+      </button>
+    </div>
+  </div>
+
+  <% if shift.days.length > 0 %>
+    <div>
+      <table class="highlight" style="margin-top: 20px">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Day of the Week</th>
+            <th>Workday</th>
+            <th>Holiday</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% shift.get_shift_days.each do |day| %>
+          <tr>
+            <td><%= day.value %></td>
+            <td><%= day.get_day_of_the_week %></td>
+            <td>
+              <% if day.workday %>
+                <i class="material-icons small icon-green">check</i>
+              <% end %>
+            </td>
+            <td>
+              <%= Holidays.on(day.value, :us, :ca).collect {|holiday| holiday[:name]}.join(", ") %>
+            </td>
+          <tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p>
+      This shift has no days.
+    </p>
+  <% end %>
+</div>

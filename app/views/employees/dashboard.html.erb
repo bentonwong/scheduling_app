@@ -1,1 +1,42 @@
-<h1>Dashboard</h1>
+<h4 class="center-align">Employee Dashboard</h4>
+
+<%= link_to "Shift Details", shift_details_path, method: :get %>
+
+<div class="row">
+  <div class="col s6 red">
+    <p class="center-align">
+      Your Next Shift
+    </p>
+    <p class="center-align">
+      <b>
+        <%= @next_shift_start_end_days[:start] %> to <%= @next_shift_start_end_days[:end] %>
+      </b>
+    </p>
+  </div>
+  <div class="col s6 green center-align">
+    <h5>
+      Your Active Swap Requests
+    </h5>
+  </div>
+</div>
+<div class="row">
+  <div class="col s6 brown center-align">
+    <%= @employee.teams.length === 1 ? ('View Your Team Schedule') : ('View Your Team Schedules') %>
+  </div>
+  <div class="col s6 brown center-align">
+    <h5>
+      Other Swap Requests
+    </h5>
+  </div>
+</div>
+<div class="row">
+  <div class="col s6 brown center-align">
+    Calendar
+  </div>
+  <div class="col s6 purple center-align">
+    <h5>
+      Recent Completed/Canceled Swap Requests
+    </h5>
+
+  </div>
+</div>
