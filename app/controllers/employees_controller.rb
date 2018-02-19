@@ -45,7 +45,8 @@ class EmployeesController < ApplicationController
   end
 
   def shift_details
-    raise params.inspect
+    team_id, shift_id = params[:team_id], params[:id]
+    @shift = Shift.find_by_id(shift_id)
   end
 
   private

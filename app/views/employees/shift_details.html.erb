@@ -1,6 +1,6 @@
-<h1>Shift Details</h1>
-<%= link_to "Dashboard", dashboard_path, method: :get %>
-
+<div class="row">
+  <%= render partial: "shifts/details", locals: {shift: @shift, employee: true} %>
+</div>
 <div class="row">
   <div class="col s4 red">
     Red

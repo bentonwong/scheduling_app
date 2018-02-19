@@ -1,21 +1,31 @@
-<h4 class="center-align">Employee Dashboard</h4>
-
-<%= link_to "Shift Details", shift_details_path, method: :get %>
-
 <div class="row">
-  <div class="col s9 grey lighten-2">
+
+</div>
+<div class="row">
+  <div class="col s9">
+    <div class="divider"></div>
+      <h6 class="center-align">
+        Your Next Shift
+      </h6>
     <p class="center-align">
-      Your Next Shift
+        <% if @next_shift_start_end_days %>
+          <p class="center-align">
+            <b><%= @next_shift_start_end_days[:start].strftime("%A, %m/%d/%Y") %></b> to <b><%= @next_shift_start_end_days[:end].strftime("%A, %m/%d/%Y") %></b>
+          </p>
+          <p class="center-align">
+            on <b><%= @team.name %></b>
+          </p>
+        <% else %>
+          <b>
+            None
+          </b>
+        <% end %>
     </p>
-    <p class="center-align">
-      <b>
-        <%= @next_shift_start_end_days[:start] %> to <%= @next_shift_start_end_days[:end] %>
-      </b>
-    </p>
+    <div class="divider"></div>
   </div>
-  <div class="col s3 green center-align">
+  <div class="col s3 orange center-align">
     <h6>
-      Your Active Swap Requests
+      Your Open Swap Requests
     </h6>
   </div>
 </div>
@@ -36,24 +46,30 @@
         </div>
       <% end %>
     </div>
+    <div class="divider"></div>
   </div>
-  <div class="col s3 brown center-align">
+  <div class="col s3 yellow center-align">
     <h6>
-      Other Swap Requests
+      Other Open Swap Requests
     </h6>
   </div>
 </div>
 <div class="row">
   <div class="center-align col s9">
     <% if @team %>
+      <p class="center-align">
+        <h6>
+          <%= @team.name %> Shifts
+        </h6>
+      </p>
       <%= render partial: "shifts/calendar", locals: {date: @date, events_by_date: @events_by_date, team_id: @team.id, dashboard: true } %>
     <% else %>
       <%= "Please select a team to view its schedule." %>
     <% end %>
   </div>
-  <div class="col s3 purple center-align">
+  <div class="col s3 green center-align">
     <h6>
-      Recent Completed/Canceled Swap Requests
+      Recently Closed Requests
     </h6>
 
   </div>

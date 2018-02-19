@@ -24,8 +24,13 @@ class Employee < ApplicationRecord
   end
 
   def get_shift_start_end_day_values
-    next_shift_days = self.get_next_shift.get_shift_days
-    { :start => next_shift_days.first.value, :end => next_shift_days.last.value }
+    next_shift = self.get_next_shift
+    if next_shift
+      days = next_shift.get_shift_days
+      { :start => days.first.value, :end => days.last.value }
+    else
+      nil
+    end
   end
 
 end

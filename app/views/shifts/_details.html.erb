@@ -2,7 +2,7 @@
 
 <div style="margin-bottom: 20px">
   <div class="row">
-    <div class="col s9">
+    <div class="col s8">
       <p>
         id: <%= shift.id %>
       </p>
@@ -13,13 +13,15 @@
         Team: <%= link_to shift.team.name, team_path(shift.team), method: :get %>
       </p>
     </div>
-    <div class="col s3" style="margin-top: 25px">
+    <div class="col s4 right-align" style="margin-top:3em">
       <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Go back" style="margin-left:1em">
         <i class="material-icons icon-white"><%= button_to "arrow_back", team_shifts_path((shift.team)), method: :get %></i>
       </button>
-      <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit shift details" style="margin-left:1em">
-        <i class="material-icons icon-white"><%= button_to "edit", edit_team_shift_path(team_id: shift.team_id, id: shift.id), method: :get  %></i>
-      </button>
+      <% if !employee %>
+        <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit shift details" style="margin-left:1em">
+          <i class="material-icons icon-white"><%= button_to "edit", edit_team_shift_path(team_id: shift.team_id, id: shift.id), method: :get  %></i>
+        </button>
+      <% end %>
     </div>
   </div>
 
@@ -28,24 +30,24 @@
       <table class="highlight" style="margin-top: 20px">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Day of the Week</th>
-            <th>Workday</th>
-            <th>Holiday</th>
+            <th class="center-align">Date</th>
+            <th class="center-align">Day of the Week</th>
+            <th class="center-align">Workday</th>
+            <th class="center-align">Holiday</th>
           </tr>
         </thead>
 
         <tbody>
         <% shift.get_shift_days.each do |day| %>
           <tr>
-            <td><%= day.value %></td>
-            <td><%= day.get_day_of_the_week %></td>
-            <td>
+            <td class="center-align"><%= day.value.strftime("%m/%d/%Y") %></td>
+            <td class="center-align"><%= day.get_day_of_the_week %></td>
+            <td class="center-align">
               <% if day.workday %>
                 <i class="material-icons small icon-green">check</i>
               <% end %>
             </td>
-            <td>
+            <td class="center-align">
               <%= Holidays.on(day.value, :us, :ca).collect {|holiday| holiday[:name]}.join(", ") %>
             </td>
           <tr>
