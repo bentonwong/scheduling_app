@@ -4,7 +4,7 @@
 
 <div class="center-align">
   <div class="container">
-    <%= render partial: "calendar", locals: {date: @date, events_by_date: @events_by_date} %>
+    <%= render partial: "calendar", locals: {date: @date, events_by_date: @events_by_date, team_id: @team.id, dashboard: false} %>
   </div>
 </div>
 

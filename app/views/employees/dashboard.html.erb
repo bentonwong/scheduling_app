@@ -3,7 +3,7 @@
 <%= link_to "Shift Details", shift_details_path, method: :get %>
 
 <div class="row">
-  <div class="col s6 red">
+  <div class="col s9 grey lighten-2">
     <p class="center-align">
       Your Next Shift
     </p>
@@ -13,30 +13,48 @@
       </b>
     </p>
   </div>
-  <div class="col s6 green center-align">
-    <h5>
+  <div class="col s3 green center-align">
+    <h6>
       Your Active Swap Requests
-    </h5>
+    </h6>
   </div>
 </div>
 <div class="row">
-  <div class="col s6 brown center-align">
-    <%= @employee.teams.length === 1 ? ('View Your Team Schedule') : ('View Your Team Schedules') %>
+  <div class="col s9">
+    <div class="row center-align">
+      <%= @employee.teams.length === 1 ? ('View Your Team Schedule') : ('View Your Team Schedules') %>
+    </div>
+    <div class="row center-align">
+      <%= form_for @employee_form, :url => url_for(controller: 'employees', action: 'dashboard'), :method => "get" do |f| %>
+        <div class="col s7 offset-s1">
+          <%= f.select :team_ids, @employee_team_select %>
+        </div>
+        <div>
+          <button type="submit" class="col s3 waves-effect waves-light btn" style="margin-top: 3px">
+          <%= f.submit "Submit" %>
+          </button>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div class="col s6 brown center-align">
-    <h5>
+  <div class="col s3 brown center-align">
+    <h6>
       Other Swap Requests
-    </h5>
+    </h6>
   </div>
 </div>
 <div class="row">
-  <div class="col s6 brown center-align">
-    Calendar
+  <div class="center-align col s9">
+    <% if @team %>
+      <%= render partial: "shifts/calendar", locals: {date: @date, events_by_date: @events_by_date, team_id: @team.id, dashboard: true } %>
+    <% else %>
+      <%= "Please select a team to view its schedule." %>
+    <% end %>
   </div>
-  <div class="col s6 purple center-align">
-    <h5>
+  <div class="col s3 purple center-align">
+    <h6>
       Recent Completed/Canceled Swap Requests
-    </h5>
+    </h6>
 
   </div>
 </div>
