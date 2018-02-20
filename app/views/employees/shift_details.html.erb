@@ -2,32 +2,16 @@
   <%= render partial: "shifts/details", locals: {shift: @shift, employee: true} %>
 </div>
 <div class="row">
-  <div class="col s4 red">
-    Red
-  </div>
-  <div class="col s4 green">
-    Green
-  </div>
-  <div class="col s4 blue">
-    Green
-  </div>
-</div>
-<div class="row">
-  <div class="col s4 orange">
-    Orange
-  </div>
-  <div class="col s4 brown">
-    Brown
-  </div>
-  <div class="col s4 purple">
-    Purple
-  </div>
-</div>
-<div class="row">
-  <div class="col s4 brown offset-s4">
-    Brown
-  </div>
-  <div class="col s4 purple">
-    Purple
-  </div>
+  <% if @shift.employee === current_user && @shift != @shift.team.current_shift && !@shift.started? %>
+    Request to swap this shift for one of these shifts:
+    <ul>
+      <% @potential_trades.each do |shift| %>
+        <li>
+          <%= shift.days.first.value %> to <%= shift.days.last.value %> with <%= shift.employee.name %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+
 </div>

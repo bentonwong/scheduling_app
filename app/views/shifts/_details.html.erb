@@ -48,7 +48,7 @@
               <% end %>
             </td>
             <td class="center-align">
-              <%= Holidays.on(day.value, :us, :ca).collect {|holiday| holiday[:name]}.join(", ") %>
+              <%= concat_holidays(day) %>
             </td>
           <tr>
         <% end %>

@@ -2,19 +2,17 @@ class ShiftsController < ApplicationController
   before_action :authorized?
   before_action :employee_authorized?
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:index, :new, :edit]
 
   def index
-    @team = Team.find_by_id(params[:team_id])
-    team_shift_ids = @team.collect_shift_ids_by_team
-    @events_by_date = Day.where(shift_id: team_shift_ids, workday: true).group_by(&:value)
+    @events_by_date = @team.events_by_date
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
   end
 
   def new
     @shift = Shift.new
-    @team_id = params[:team_id]
-    @employee_list = Employee.assignable_employee_hash(@team_id)
-    @weeks_array = Shift.weeks_array
+    @employees = @team.assignable_employee_hash
+    @weeks = Shift.weeks_array
   end
 
   def create
@@ -26,8 +24,7 @@ class ShiftsController < ApplicationController
   end
 
   def edit
-    @team_id = params[:team_id]
-    @employees = Employee.assignable_employee_hash(@team_id)
+    @employees = @team.assignable_employee_hash
   end
 
   def update
@@ -35,7 +32,7 @@ class ShiftsController < ApplicationController
     if @shift.save
         redirect_to team_shift_path(@shift)
       else
-        redirect_to team_shift_path(@shift)
+        redirect_to edit_team_shift_path(team_id: @shift.team.id, id: @shift.id)
       end
   end
 
@@ -53,6 +50,10 @@ class ShiftsController < ApplicationController
 
     def set_shift
       @shift = Shift.find_by_id(params[:id])
+    end
+
+    def set_team
+      @team = Team.find_by_id(params[:team_id])
     end
 
 end

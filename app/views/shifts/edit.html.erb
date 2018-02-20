@@ -34,20 +34,20 @@
     <table class="highlight" style="margin-top: 20px">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Day of the Week</th>
-          <th>Workday</th>
-          <th>Holiday</th>
+          <th class="center-align">Date</th>
+          <th class="center-align">Day of the Week</th>
+          <th class="center-align">Workday</th>
+          <th class="center-align">Holiday</th>
         </tr>
       </thead>
       <tbody>
         <% @shift.get_shift_days.each do |day| %>
           <tr>
-            <td><%= day.value %></td>
-            <td>
+            <td class="center-align"><%= day.value.strftime("%m/%d/%Y") %></td>
+            <td class="center-align">
               <%= day.get_day_of_the_week %>
             </td>
-            <td>
+            <td class="center-align">
               <%= f.fields_for :days, day do |day_field| %>
                 <p>
                   <ul style="list-style-type:none">
@@ -61,7 +61,7 @@
                 </p>
               <% end %>
             </td>
-            <td>
+            <td class="center-align">
               <div class="orange-text text-darken-3">
                 <%= day.get_holiday_text %>
               </div>
@@ -80,11 +80,11 @@
     <% end %>
 
     <button class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50" data-tooltip="Cancel" style="margin-left:1em">
-        <i class="material-icons icon-white"><%= link_to "cancel", team_shift_path(team_id: @team_id, id: @shift.id), method: :get, class: "icon-white" %></i>
+        <i class="material-icons icon-white"><%= link_to "cancel", team_shift_path(team_id: @team.id, id: @shift.id), method: :get, class: "icon-white" %></i>
     </button>
 
     <button class="btn-floating btn-large green tooltipped" data-position="top" data-delay="50" data-tooltip="Delete" style="margin-left:1em">
-        <i class="material-icons icon-white"><%= link_to "delete", team_shift_path(team_id: @team_id, id: @shift.id), method: :delete, class: "icon-white" %></i>
+        <i class="material-icons icon-white"><%= link_to "delete", team_shift_path(team_id: @team.id, id: @shift.id), method: :delete, class: "icon-white" %></i>
     </button>
   </div>
 

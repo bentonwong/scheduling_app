@@ -23,24 +23,8 @@ class Team < ApplicationRecord
 
   SHIFT_LENGTH_VALUES = [1, 2, 3, 4, 5, 6, 7]
 
-  def collect_shift_ids_by_team
-    self.shifts.collect { |shift| shift.id }.uniq
-  end
-
   def start_day_as_string
     WEEKDAY_HASH[self.start_day]
-  end
-
-  def sorted_team_employees_by_id
-    self.employees.sort_by{ |employee| employee.id }
-  end
-
-  def current_shift
-    Day.upcoming_shifts_by_team(self).first
-  end
-
-  def next_shift
-    Day.upcoming_shifts_by_team(self)[1]
   end
 
   def self.reverse_weekday_hash
@@ -49,6 +33,52 @@ class Team < ApplicationRecord
 
   def self.shift_length_values
     SHIFT_LENGTH_VALUES
+  end
+
+  def collect_shift_ids_by_team
+    self.shifts.collect { |shift| shift.id }.uniq
+  end
+
+  def sorted_team_employees_by_id
+    self.employees.sort_by{ |employee| employee.id }
+  end
+
+  def current_shift
+    days = Day.where("value = ?", Date.today)
+    day = days.find { |day| day.shift.team === self }
+    if day
+      if day.shift.started? && !day.shift.ended?
+        return day.shift
+      end
+    end
+    nil
+  end
+
+  def next_shift
+    Day.upcoming_shifts_days_by_team(self)[1]
+  end
+
+  def upcoming_shifts
+    days = Day.where("value > ?", Date.today)
+    filtered_days = days.select { |day| day.shift.team === self && day.shift != self.current_shift }
+    upcoming_shifts = filtered_days.collect { |day| day.shift }.uniq
+    upcoming_shifts.sort_by { |shift| shift.days.min }
+  end
+
+  def assignable_employee_array
+    self.employees.select { |employee| employee.assignable }
+  end
+
+  def assignable_employee_hash
+    employee_hash = {}
+    team_list = self.assignable_employee_array
+    team_list.each { |employee| employee_hash[employee.name] = employee.id }
+    employee_hash
+  end
+
+  def events_by_date
+    team_shift_ids = self.collect_shift_ids_by_team
+    Day.where(shift_id: team_shift_ids, workday: true).group_by(&:value)
   end
 
 end

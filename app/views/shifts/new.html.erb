@@ -11,7 +11,7 @@
         </div>
 
         <div class="col s6">
-          <%= f.select :employee_id, @employee_list %>
+          <%= f.select :employee_id, @employees %>
         </div>
 
       </div>
@@ -23,7 +23,7 @@
         </div>
 
         <div class="col s2">
-          <%= f.select :weeks_to_assign, options_for_select(@weeks_array, @weeks_array[0]) %>
+          <%= f.select :weeks_to_assign, options_for_select(@weeks, @weeks[0]) %>
         </div>
 
         <div class="col s4" style="padding: 11px 0px; text-align: left">
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <%= f.hidden_field :team_id, value: @team_id %>
+    <%= f.hidden_field :team_id, value: @team.id %>
 
     <div class="row" style="margin: 100px 50px">
       <div class="col s12 right-align">
