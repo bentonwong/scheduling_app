@@ -2,7 +2,7 @@
   <%= render partial: "shifts/details", locals: {shift: @shift, employee: true} %>
 </div>
 <div class="row col-s12">
-  <% if @shift.employee === current_user && @shift != @shift.team.current_shift && !@shift.started? %>
+  <% if @shift.employee === current_user && @shift != @shift.team.current_shift && !@shift.started? && !@shift.active_swap_requests? %>
     Request to swap this shift for one of these shifts:
     <%= form_for @request, :url => {:controller => "requests", :action => "create"} do |f| %>
       <%= f.hidden_field :request_shift_id, value: @shift.id %>
@@ -31,11 +31,27 @@
           </button>
         </div>
       </div>
-
-
     <% end %>
   <% end %>
 
+  <% if @shift.active_swap_requests? %>
+    <div class="row">
+      You have sent a request to swap this shift with:
+    </div>
+    <div class="row">
+      <% @shift.responses_of_sent_request.each do |response| %>
+        <li>
+          <%= link_to response.concat_response_info, shift_details_path(team_id: response.shift.team.id, id: response.shift.id), method: :get%>
+        </li>
+      <% end %>
+    </div>
+    <div class="row">
+      <button class="waves-effect waves-light btn red" style="margin-left:1em">
+          <%= link_to "Cancel Swap Request", request_path(@shift.active_swap_request), method: :patch, class: "white-text" %>
+      </button>
+    </div>
+
+  <% end %>
 
 
 </div>

@@ -15,6 +15,11 @@ class RequestsController < ApplicationController
   end
 
   def update
+    request = Request.find_by_id(params[:id])
+    shift = request.shift
+    request.status = 'canceled'
+    request.save
+    redirect_to shift_details_path(team_id: shift.team_id, id: shift.id)
   end
 
   private

@@ -90,4 +90,16 @@ class Shift < ApplicationRecord
     { :start => start_date.value, :end => end_date.value }
   end
 
+  def responses_of_sent_request
+    self.requests.detect { |request| request.status === "sent" }.responses
+  end
+
+  def active_swap_requests?
+    self.requests.any? { |request| request.status === 'sent' }
+  end
+
+  def active_swap_request
+    self.requests.detect { |request| request.status === 'sent' }
+  end
+
 end
