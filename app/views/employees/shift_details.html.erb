@@ -5,7 +5,7 @@
   <% if @shift.employee === current_user && @shift != @shift.team.current_shift && !@shift.started? %>
     Request to swap this shift for one of these shifts:
     <%= form_for @request, :url => {:controller => "requests", :action => "create"} do |f| %>
-      <%= f.hidden_field :shift_id, value: @shift.id %>
+      <%= f.hidden_field :request_shift_id, value: @shift.id %>
       <% @potential_trades.each do |trade| %>
         <%= f.fields_for :responses, trade do |response_field| %>
           <p>

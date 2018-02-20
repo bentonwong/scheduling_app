@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20180218154515) do
   create_table "requests", force: :cascade do |t|
     t.integer "employee_id"
     t.integer "shift_id"
-    t.string "status", default: "pending"
+    t.string "status", default: "sent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20180218154515) do
   create_table "responses", force: :cascade do |t|
     t.integer "request_id"
     t.integer "employee_id"
+    t.integer "shift_id"
     t.string "answer", default: "waiting"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
