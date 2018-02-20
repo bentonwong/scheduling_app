@@ -3,9 +3,11 @@
 <div style="margin-bottom: 20px">
   <div class="row">
     <div class="col s8">
-      <p>
-        id: <%= shift.id %>
-      </p>
+      <% if !employee %>
+        <p>
+          id: <%= shift.id %>
+        </p>
+      <% end %>
       <p>
         Employee: <%= link_to shift.employee.name, employee_path(shift.employee), method: :get %>
       </p>
@@ -13,7 +15,7 @@
         Team: <%= link_to shift.team.name, team_path(shift.team), method: :get %>
       </p>
     </div>
-    <div class="col s4 right-align" style="margin-top:3em">
+    <div class="col s4 right-align" style="margin-top:1em">
       <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Go back" style="margin-left:1em">
         <i class="material-icons icon-white"><%= button_to "arrow_back", team_shifts_path((shift.team)), method: :get %></i>
       </button>
@@ -47,7 +49,7 @@
                 <i class="material-icons small icon-green">check</i>
               <% end %>
             </td>
-            <td class="center-align">
+            <td class="center-align orange-text">
               <%= concat_holidays(day) %>
             </td>
           <tr>

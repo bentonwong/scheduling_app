@@ -5,18 +5,18 @@
     <table class="highlight">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Schedule</th>
+          <th class="center-align">ID</th>
+          <th class="center-align">Name</th>
+          <th class="center-align">Schedule</th>
         </tr>
       </thead>
 
       <tbody>
         <% @teams.sort_by(&:id).each do |team| %>
           <tr>
-            <td><%= link_to team.id, team_path(team), method: :get %></td>
-            <td><%= team.name %></td>
-            <td><i class="material-icons icon-white"><%= link_to "grid_on", team_shifts_path(team_id: team.id)%></i></td>
+            <td class="center-align"><%= link_to team.id, team_path(team), method: :get %></td>
+            <td class="center-align"><%= team.name %></td>
+            <td class="center-align"><i class="material-icons icon-white"><%= link_to "grid_on", team_shifts_path(team_id: team.id)%></i></td>
           <tr>
         <% end %>
       </tbody>

@@ -1,17 +1,40 @@
 <div class="row">
   <%= render partial: "shifts/details", locals: {shift: @shift, employee: true} %>
 </div>
-<div class="row">
+<div class="row col-s12">
   <% if @shift.employee === current_user && @shift != @shift.team.current_shift && !@shift.started? %>
     Request to swap this shift for one of these shifts:
-    <ul>
-      <% @potential_trades.each do |shift| %>
-        <li>
-          <%= shift.days.first.value %> to <%= shift.days.last.value %> with <%= shift.employee.name %>
-        </li>
+    <%= form_for @request, :url => {:controller => "requests", :action => "create", :id => @shift} do |f| %>
+      <% @potential_trades.each do |response| %>
+        <%= f.fields_for :responses, response do |response_field| %>
+          <p>
+            <ul style="list-style-type:none">
+              <li>
+                <div class="row">
+                  <%= response_field.check_box :requests, class: "filled-in" %>
+                  <%= response_field.label :requests, "#{response.days.first.value} to #{response.days.last.value} with #{response.employee.name}" %>
+                </div>
+              </li>
+            </ul>
+          </p>
+        <% end %>
       <% end %>
-    </ul>
+
+      <div class="row" style="margin: 50px 0">
+        <div class="col s12 left-align">
+          <button type="submit" class="waves-effect waves-light btn">
+              <%= f.submit "Submit Request"%>
+          </button>
+          <button class="waves-effect waves-light btn red" style="margin-left:1em">
+              <%= link_to "Cancel", dashboard_path, method: :get, class: "white-text" %>
+          </button>
+        </div>
+      </div>
+
+
+    <% end %>
   <% end %>
+
 
 
 </div>

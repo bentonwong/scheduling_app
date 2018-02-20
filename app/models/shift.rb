@@ -28,11 +28,11 @@ class Shift < ApplicationRecord
   end
 
   def self.set_shift_details(weeks_to_assign, team, employee=nil)
-    upcoming_shifts_cache = Day.upcoming_shifts_days_by_team(team).collect { |day| day.value }
+    upcoming_shifts_cache = team.upcoming_shifts_days.collect { |day| day.value }
     weeks_to_assign.times do
       new_shift = Shift.new
       new_shift.team = team
-      !employee ? (new_shift.employee = Employee.assignable_employee_array(team.id).sample) : (new_shift.employee = employee)
+      !employee ? (new_shift.employee = team.assignable_employee_array.sample) : (new_shift.employee = employee)
       open_dates = self.find_next_open_dates(team, upcoming_shifts_cache)
       open_dates.each do |day|
         holiday_status = Day.holiday?(day)
@@ -63,8 +63,12 @@ class Shift < ApplicationRecord
     proposed_shift_dates.sort
   end
 
-  def get_shift_days
+  def get_shift_workdays
     self.days.select{ |day| day.workday }.sort_by{ |day| day.value }
+  end
+
+  def get_shift_days
+    self.days.sort_by{ |day| day.value }
   end
 
   def get_potential_trades
@@ -72,15 +76,15 @@ class Shift < ApplicationRecord
   end
 
   def started?
-    self.get_shift_days.select { |day| day.workday }.any? { |day| day.value <= Date.today }
+    self.get_shift_workdays.select { |day| day.workday }.any? { |day| day.value <= Date.today }
   end
 
   def ended?
-    self.get_shift_days.select { |day| day.workday }.all? { |day| day.value < Date.today }
+    self.get_shift_workdays.select { |day| day.workday }.all? { |day| day.value < Date.today }
   end
 
   def get_start_end_day_values
-    days = self.get_shift_days
+    days = self.get_shift_workdays
     start_date, end_date = days.min_by(&:value), days.max_by(&:value)
     { :start => start_date.value, :end => end_date.value }
   end

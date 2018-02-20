@@ -4,11 +4,13 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'employees#dashboard', as: 'dashboard'
   get '/dashboard/:team_id/shifts/:id', to: 'employees#shift_details', as: 'shift_details'
 
+
   resources :employees
   resources :teams do
     resources :shifts
   end
   resources :session, only: [:home, :create, :destroy]
+  resources :requests, only: [:create, :update]
 
   root 'session#home'
 

@@ -55,7 +55,7 @@ class Team < ApplicationRecord
   end
 
   def next_shift
-    Day.upcoming_shifts_days_by_team(self)[1]
+    self.upcoming_shifts.first
   end
 
   def upcoming_shifts
@@ -79,6 +79,11 @@ class Team < ApplicationRecord
   def events_by_date
     team_shift_ids = self.collect_shift_ids_by_team
     Day.where(shift_id: team_shift_ids, workday: true).group_by(&:value)
+  end
+
+  def upcoming_shifts_days
+    days = Day.where("value > ?", Date.today)
+    days.select { |day| day.shift.team === self }
   end
 
 end

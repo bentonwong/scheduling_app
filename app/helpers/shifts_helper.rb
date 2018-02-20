@@ -1,7 +1,7 @@
 module ShiftsHelper
 
   def concat_holidays(day)
-    Holidays.on(day.value, :us, :ca).collect {|holiday| holiday[:name]}.join(", ")
+    Day.get_holiday(day.value).collect {|holiday| holiday[:name]}.join(", ")
   end
 
 end

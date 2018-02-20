@@ -53,8 +53,8 @@
                   <ul style="list-style-type:none">
                     <li>
                       <div class="row">
-                      <%= day_field.check_box :workday, class: "filled-in" %>
-                      <%= day_field.label :workday, "click to change" %>
+                        <%= day_field.check_box :workday, class: "filled-in" %>
+                        <%= day_field.label :workday, "click to change" %>
                     </div>
                     </li>
                   </ul>
@@ -63,7 +63,7 @@
             </td>
             <td class="center-align">
               <div class="orange-text text-darken-3">
-                <%= day.get_holiday_text %>
+                <%= concat_holidays(day) %>
               </div>
             </td>
           </tr>
@@ -72,10 +72,7 @@
     </table>
   </div>
 
-  <div class="left-align" style="margin: 2em 0">
-    <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="top" data-delay="50" data-tooltip="Save" style="margin-left:1em; margin-bottom:">
-        <i class="material-icons icon-white"><%= f.submit "save"%></i>
-    </button>
+
 
     <% end %>
 

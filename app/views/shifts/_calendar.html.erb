@@ -7,13 +7,13 @@
             <i class="material-icons icon-white">keyboard_arrow_left</i>
           <% end %>
         <% else %>
-          <%= link_to team_shifts_path(team_id: team_id, date: date - 1.month), class: "waves-effect waves-light btn-floating btn-small", style:"margin-right: 1em" do %>
+          <%= link_to dashboard_path(team_id: team_id, date: date - 1.month), class: "waves-effect waves-light btn-floating btn-small", style:"margin-right: 1em" do %>
             <i class="material-icons icon-white">navigate_before</i>
           <% end %>
         <% end %>
         <%= "#{date.strftime("%B")} #{date.year}" %>
         <% if !dashboard %>
-          <%= link_to dashboard_path(team_id: team_id, date: date + 1.month), class: "waves-effect waves-light btn-floating btn-small", style:"margin-left: 1em" do %>
+          <%= link_to team_shifts_path(team_id: team_id, date: date + 1.month), class: "waves-effect waves-light btn-floating btn-small", style:"margin-left: 1em" do %>
             <i class="material-icons icon-white">navigate_next</i>
           <% end %>
         <% else %>

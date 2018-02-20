@@ -5,10 +5,6 @@ class Day < ApplicationRecord
     self.value.strftime('%A')
   end
 
-  def get_holiday_text
-    Day.get_holiday(self.value).collect {|holiday| holiday[:name]}.join(", ")
-  end
-
   def self.get_holiday(day)
     Holidays.on(day, :us, :ca)
   end
