@@ -38,6 +38,8 @@ class ShiftsController < ApplicationController
 
   def destroy
     @shift.days.destroy
+    @shift.requests.destroy
+    @shift.responses.destroy
     @shift.destroy
     redirect_to team_shifts_path(params[:team_id])
   end

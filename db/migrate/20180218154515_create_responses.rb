@@ -3,6 +3,7 @@ class CreateResponses < ActiveRecord::Migration[5.1]
     create_table :responses do |t|
       t.integer :request_id
       t.integer :employee_id
+      t.integer :shift_id
       t.string :answer, :default => 'waiting'
 
       t.timestamps

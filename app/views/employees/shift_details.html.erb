@@ -4,15 +4,16 @@
 <div class="row col-s12">
   <% if @shift.employee === current_user && @shift != @shift.team.current_shift && !@shift.started? %>
     Request to swap this shift for one of these shifts:
-    <%= form_for @request, :url => {:controller => "requests", :action => "create", :id => @shift} do |f| %>
-      <% @potential_trades.each do |response| %>
-        <%= f.fields_for :responses, response do |response_field| %>
+    <%= form_for @request, :url => {:controller => "requests", :action => "create"} do |f| %>
+      <%= f.hidden_field :shift_id, value: @shift.id %>
+      <% @potential_trades.each do |trade| %>
+        <%= f.fields_for :responses, trade do |response_field| %>
           <p>
             <ul style="list-style-type:none">
               <li>
                 <div class="row">
-                  <%= response_field.check_box :requests, class: "filled-in" %>
-                  <%= response_field.label :requests, "#{response.days.first.value} to #{response.days.last.value} with #{response.employee.name}" %>
+                  <%= response_field.check_box :add_to_request, class: "filled-in" %>
+                  <%= response_field.label :add_to_request, "#{trade.days.first.value} to #{trade.days.last.value} with #{trade.employee.name}" %>
                 </div>
               </li>
             </ul>

@@ -4,10 +4,11 @@ class Shift < ApplicationRecord
   has_many :days, :dependent => :destroy
   belongs_to :team
   belongs_to :employee
-  has_many :requests
+  has_many :requests, :dependent => :destroy
+  has_many :responses, :dependent => :destroy
   accepts_nested_attributes_for :days
 
-  attr_accessor :assignment_method, :weeks_to_assign, :selected_date
+  attr_accessor :assignment_method, :weeks_to_assign, :selected_date, :add_to_request
 
   WEEKS_ARRAY = (1..10).to_a
   WEEKS_TO_ASSIGN_MANUAL = 1
