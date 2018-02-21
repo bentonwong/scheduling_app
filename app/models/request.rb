@@ -18,8 +18,18 @@ class Request < ApplicationRecord
     "#{dates[:start].strftime("%m/%d/%Y")} to #{dates[:end].strftime("%m/%d/%Y")}"
   end
 
-  def all_declined?
-    self.responses.all? { |res| res.answer === 'declined' }
+  def all_responses_declined?
+    self.responses.all? { |res| res.answer === 'decline' }
+  end
+
+  def all_responses_expired?
+    self.responses.all? { |res| res.shift.started? || res.answer === 'expired' }
+  end
+
+  def cancel_if_shift_started_or_all_responses_declined_expired
+    shift = self.shift
+    self.status = "canceled" if shift.started? || self.all_responses_declined? || self.all_responses_expired?
+    self.save
   end
 
 end

@@ -4,18 +4,16 @@ class ResponsesController < ApplicationController
     res_id, choice = response_params.values_at(:id, :choice)
     res = Response.find_by_id(res_id)
     res.update(answer: choice)
+    req = res.request
     if choice === "accept"
-      req = res.request
-      req_shift = req.shift
-      res_shift = res.shift
-      req_shift.employee, res_shift.employee  = res_shift.employee, req_shift.employee
-      req_shift.save
-      res_shift.save
-      res.save
-      req.update(status: "completed")
+      Response.swap_shifts(res, req)
+      redirect_to shift_details_path(team_id: req.shift.team.id, id: req.shift.id)
+    else
+      req.cancel_if_shift_started_or_all_responses_declined_expired
       req.save
+      res.save
+      redirect_to dashboard_path
     end
-    redirect_to shift_details_path(team_id: req.shift.team.id, id: req.shift.id)
   end
 
   private

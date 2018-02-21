@@ -6,7 +6,7 @@ class Day < ApplicationRecord
   end
 
   def self.get_holiday(day)
-    Holidays.on(day, :us, :ca)
+    Holidays.on(day, :us)
   end
 
   def self.holiday?(day)

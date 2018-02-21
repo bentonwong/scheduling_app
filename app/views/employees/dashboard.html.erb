@@ -1,6 +1,5 @@
-<div class="row">
+<div class="row"></div>
 
-</div>
 <div class="row">
   <div class="col s9">
     <div class="divider"></div>
@@ -22,34 +21,11 @@
         <% end %>
     </p>
     <div class="divider"></div>
-  </div>
-  <div class="center-align">
-    <div class="row col s3 grey lighten-1">
-      <h6>
-        Your Open Swap Requests
-      </h6>
-    </div>
-    <% if @employee.open_requests? %>
-      <% @employee.open_requests.each do |request| %>
-        <div class="row" style="font-size: small">
-          <div style="margin: 10px 0">
-            <%= link_to request.display_open_req_info, shift_details_path(request.shift.team, request.shift), method: :get %>
-            <span class="grey darken-1 white-text z-depth-2" style="margin: 0 1em; padding: 5px; font-size: x-small">
-              WAITING
-            </span>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <p>None</p>
-    <% end %>
-  </div>
-</div>
-<div class="row">
-  <div class="col s9">
-    <div class="row center-align">
+    <div class="row"></div>
+    <div class="center-align">
       <%= @employee.teams.length === 1 ? ('View Your Team Schedule') : ('View Your Team Schedules') %>
     </div>
+    <div class="row"></div>
     <div class="row center-align">
       <%= form_for @shift_calendar_form, :url => url_for(controller: 'employees', action: 'dashboard'), :method => "get" do |f| %>
         <div class="col s7 offset-s1">
@@ -63,67 +39,78 @@
       <% end %>
     </div>
     <div class="divider"></div>
-  </div>
-  <div class="center-align">
-    <div class="row col s3 yellow">
-      <h6>
-        Swap Requests From Others
-      </h6>
-    </div>
-    <% if @employee.awaiting_responses? %>
-      <% @employee.awaiting_responses.each do |res| %>
-        <div style="font-size: small; margin: 5px 0">
-          <span>
-            <%= "#{res.request.employee.name} has requested to swap the" %> <%= link_to res.display_req_info, shift_details_path(team_id: res.request.shift.team.id, id: res.request.shift_id), method: :get %> shift for your <%= link_to res.display_res_info, shift_details_path(team_id: res.shift.team.id, id: res.shift_id), method: :get%> shift.
-          </span>
-          <%= form_for res do |f| %>
-            <span style="padding: 5px">
-              <%= f.button "Accept", name: "choice", value: "accept", class: "green white-text z-depth-2", style: "margin: 0.5em 0" %>
-            </span>
-            <span style="padding: 5px">
-              <%= f.button "Decline", name: "choice", value: "decline", class: "red white-text z-depth-2", style: "margin: 0.5em 0" %>
-            </span>
-          <% end %>
-        </div>
-      <% end %>
-    <% else %>
-      <p>None</p>
-    <% end %>
-  </div>
-</div>
-<div class="row">
-  <div class="center-align col s9">
-    <% if @team %>
-      <p class="center-align">
-        <h6>
+    <div>
+      <div class="row"></div>
+      <% if @team %>
+        <h6 class="center-align">
           <%= @team.name %> Shifts
         </h6>
-      </p>
-      <%= render partial: "shifts/calendar", locals: {date: @date, events_by_date: @events_by_date, team_id: @team.id, dashboard: true } %>
-    <% else %>
-      <%= "Please select a team to view its schedule." %>
-    <% end %>
+        <div class="row"></div>
+        <%= render partial: "shifts/calendar", locals: {date: @date, events_by_date: @events_by_date, team_id: @team.id, dashboard: true } %>
+      <% else %>
+        <%= "Please select a team to view its schedule." %>
+      <% end %>
+    </div>
   </div>
   <div class="center-align">
-    <div class="row col s3 green">
-      <h6>
-        Your Closed Swap Requests
-      </h6>
-    </div>
-    <% if @employee.closed_requests? %>
-      <div class="row" style="font-size: small">
-        <% @employee.closed_requests.each do |request| %>
-          <div style="margin: 10px 0">
-            <%= link_to request.display_closed_req_info, shift_details_path(request.shift.team, request.shift), method: :get %>
-            <span class="<%= closed_swap_request_tag(request)[:color] %> white-text z-depth-2" style="margin: 0 1em; padding: 5px; font-size: x-small">
-              <%= closed_swap_request_tag(request)[:msg] %>
+      <div class="row col s3 yellow">
+        <h6>
+          Your Open Swap Requests
+        </h6>
+      </div>
+      <% if @employee.open_requests? %>
+        <% @employee.open_requests.each do |request| %>
+          <div style="padding: 1em; font-size: small">
+            <%= link_to request.display_open_req_info, shift_details_path(request.shift.team, request.shift), method: :get %>
+            <span class="grey darken-1 white-text z-depth-2" style="margin: 0 1em; padding: 5px; font-size: x-small">
+              WAITING
             </span>
           </div>
         <% end %>
+      <% else %>
+        <p>None</p>
+      <% end %>
+    </div>
+    <div class="center-align">
+      <div class="row col s3 orange center-align">
+        <h6>
+          Swap Requests From Others
+        </h6>
       </div>
-    <% else %>
-      <p>None</p>
-    <% end %>
-
+      <% if @employee.awaiting_responses? %>
+        <% @employee.awaiting_responses.each do |res| %>
+          <div style="padding: 1em; font-size: small">
+            <%= form_for res do |f| %>
+              <%= "#{res.request.employee.name} has requested to swap the" %> <%= link_to res.display_req_info, shift_details_path(team_id: res.request.shift.team.id, id: res.request.shift_id), method: :get %> shift for your <%= link_to res.display_res_info, shift_details_path(team_id: res.shift.team.id, id: res.shift_id), method: :get%> shift.<br />
+              <%= f.button "Accept", name: "choice", value: "accept", class: "green white-text z-depth-2", style:"margin: 0.5em 0.5em 0 0.5em" %>
+              <%= f.button "Decline", name: "choice", value: "decline", class: "red white-text z-depth-2", style:"margin: 0.5em 0.5em 0 0.5em" %>
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <p>None</p>
+      <% end %>
+    </div>
+    <div class="center-align">
+      <div class="row col s3 green center-align">
+        <h6>
+          Your Closed Swap Requests
+        </h6>
+      </div>
+      <% if @employee.closed_requests? %>
+        <div class="row" style="font-size: small">
+          <% @employee.closed_requests.each do |request| %>
+            <div style="margin: 10px 0">
+              <%= link_to request.display_closed_req_info, shift_details_path(request.shift.team, request.shift), method: :get %>
+              <span class="<%= closed_swap_request_tag(request)[:color] %> white-text z-depth-2" style="margin: 0 1em; padding: 5px; font-size: x-small">
+                <%= closed_swap_request_tag(request)[:msg] %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>None</p>
+      <% end %>
+    </div>
   </div>
 </div>
