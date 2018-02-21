@@ -12,4 +12,14 @@ module EmployeesHelper
     end
   end
 
+  def closed_swap_response_tag(response)
+    if response.answer === "waiting"
+      {msg: "WAITING", color: "grey"}
+    elsif response.answer === "decline"
+      {msg: "DECLINED", color: "red"}
+    else
+      {msg: "EXPIRED", color: "red"}
+    end
+  end
+
 end

@@ -35,25 +35,34 @@
     </div>
     <% end %>
   <% end %>
-
+  <div class="divider"></div>
   <% if @shift.active_swap_requests? %>
+    <div class="row"></div>
     <div class="row">
-      <div class="divider"></div>
-    </div>
-    <div class="row">
-      You have sent a request to swap this shift with:
-    </div>
-    <div class="row">
-      <% @shift.responses_of_sent_request.each do |response| %>
-        <li>
-          <%= link_to response.concat_response_info, shift_details_path(team_id: response.shift.team.id, id: response.shift.id), method: :get%>
-        </li>
-      <% end %>
-    </div>
-    <div class="row">
-      <button class="waves-effect waves-light btn red" style="margin-left:1em">
-          <%= link_to "Cancel Swap Request", request_path(@shift.active_swap_request), method: :patch, class: "white-text" %>
-      </button>
+      <div class="col s3"></div>
+      <div class="col s6">
+        <h6 class="center-align">You have sent a request to swap this shift with:</h6>
+        <table>
+          <% @shift.responses_of_sent_request.each do |response| %>
+            <tr>
+              <td>
+                <%= link_to response.concat_response_info, shift_details_path(team_id: response.shift.team.id, id: response.shift.id), method: :get%>
+              </td>
+              <td class="center-align">
+                <span class="<%= closed_swap_response_tag(response)[:color] %> white-text z-depth-2" style="margin: 0 1em; padding: 5px; font-size: x-small">
+                  <%= closed_swap_response_tag(response)[:msg] %>
+                </span>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+        <div class="row"></div>
+        <div class="row center-align">
+          <button class="waves-effect waves-light btn red" style="margin-left:1em">
+            <%= link_to "Cancel Swap Request", request_path(@shift.active_swap_request), method: :patch, class: "white-text" %>
+          </button>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
