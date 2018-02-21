@@ -12,4 +12,10 @@ class Response < ApplicationRecord
     self.shift.get_start_end_day_values
   end
 
+  def display_res_info
+    shift = self.request.shift
+    dates = shift.get_start_end_day_values
+    "#{dates[:start].strftime("%m/%d/%Y")} to #{dates[:end].strftime("%m/%d/%Y")} by #{shift.employee.name}"
+  end
+
 end
