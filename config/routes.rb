@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
   resources :session, only: [:home, :create, :destroy]
   resources :requests, only: [:create, :update]
+  resources :responses, only: [:update]
 
   root 'session#home'
 

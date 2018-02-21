@@ -32,6 +32,7 @@ class EmployeesController < ApplicationController
     set_dashboard_employee_info
     set_shift_picker_params
     set_calendar_params
+    @response = Response.new
   end
 
   def shift_details
