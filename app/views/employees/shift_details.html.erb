@@ -7,7 +7,7 @@
     <div class="row">
       <div class="divider"></div>
     </div>
-    Request to swap this shift for one of these shifts:
+    Request to swap this shift for one of these shifts (you may choose more than one):
     <%= form_for @request, :url => {:controller => "requests", :action => "create"} do |f| %>
       <%= f.hidden_field :request_shift_id, value: @shift.id %>
       <% @potential_trades.each do |trade| %>

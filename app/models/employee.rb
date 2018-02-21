@@ -16,12 +16,12 @@ class Employee < ApplicationRecord
     self.next_shift.get_start_end_day_values
   end
 
-  def open_requests
-    self.requests.select { |req| req.status === 'sent' }
-  end
-
   def open_requests?
     self.open_requests.length > 0
+  end
+
+  def open_requests
+    self.requests.select { |req| req.status === 'sent' }
   end
 
   def closed_requests?
