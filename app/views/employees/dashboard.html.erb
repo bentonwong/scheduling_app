@@ -75,13 +75,13 @@
         <div class="row" style="font-size: x-small">
           <%= "#{res.request.employee.name} has requested to swap the" %> <%= link_to res.display_req_info, shift_details_path(team_id: res.request.shift.team.id, id: res.request.shift_id), method: :get %> shift for your <%= link_to res.display_res_info, shift_details_path(team_id: res.shift.team.id, id: res.shift_id), method: :get%> shift.
           <div class="row">
-            <%= form_for @response, :url => url_for(controller: 'responses', action: 'update', id: res.id), :method => "patch" do |f| %>
-              <%= f.button "Accept", name: "response", value: "accept" %>
-              <%= f.button "Decline", name: "response", value: "decline" %>
+            <% @response = res %>
+            <%= form_for res do |f| %>
+              <%= f.button "Accept", name: "choice", value: "accept" %>
+              <%= f.button "Decline", name: "choice", value: "decline" %>
             <% end %>
           </div>
         </div>
-
       <% end %>
     <% else %>
       <p>None</p>

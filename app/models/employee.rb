@@ -37,7 +37,7 @@ class Employee < ApplicationRecord
   end
 
   def awaiting_responses
-    self.responses.select { |res| res.request.status = "sent" && !res.request.shift.started? && res.answer === "waiting"}
+    self.responses.select { |res| res.request.status === "sent" && !res.request.shift.started? && res.answer === "waiting"}
   end
 
 end
