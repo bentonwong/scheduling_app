@@ -6,6 +6,9 @@ class Employee < ApplicationRecord
   has_many :responses
   accepts_nested_attributes_for :teams
 
+  validates :name, presence: :true
+  validates :name, uniqueness: :true
+
   attr_accessor :init_team_id
 
   def next_shift

@@ -11,6 +11,21 @@
   <div class="row">
     <%= form_for @shift, :url => {:action => "update", :id => @shift} do |f| %>
 
+      <% if @shift.errors.any? %>
+        <div id="error_explanation">
+          <h6>
+            <%= pluralize(@shift.errors.count, "error") %> prohibited
+            this user from being saved:
+          </h6>
+
+          <ul>
+          <% @shift.errors.full_messages.each do |msg| %>
+            <li class="red-text"><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
       <div class="row">
         <div class="col s4">
           <%= f.label :employee_id %>
@@ -71,8 +86,6 @@
       </tbody>
     </table>
   </div>
-
-
 
     <% end %>
 

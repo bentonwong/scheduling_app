@@ -91,7 +91,7 @@ class Shift < ApplicationRecord
   end
 
   def responses_of_sent_request
-    self.requests.detect { |request| request.status === "sent" }.responses
+    self.requests.detect { |request| request.status === 'sent' }.responses
   end
 
   def active_swap_requests?

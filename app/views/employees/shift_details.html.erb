@@ -9,6 +9,20 @@
     </div>
     Request to swap this shift for one of these shifts (you may choose more than one):
     <%= form_for @request, :url => {:controller => "requests", :action => "create"} do |f| %>
+
+      <% if @request.errors.any? %>
+        <div id="error_explanation" style="margin: 2em 2em">
+          <h6>
+            <%= pluralize(@request.errors.count, "error") %> prohibited
+            this request from being saved:
+          </h6>
+
+          <ul>
+            <li class="red-text"><%= @request.errors.first[1] %></li>
+          </ul>
+        </div>
+      <% end %>
+
       <%= f.hidden_field :request_shift_id, value: @shift.id %>
       <% @potential_trades.each do |trade| %>
         <%= f.fields_for :responses, trade do |response_field| %>

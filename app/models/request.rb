@@ -4,6 +4,8 @@ class Request < ApplicationRecord
   has_many :responses
   accepts_nested_attributes_for :responses
 
+  validates_presence_of  :responses, :message => "Must select at least 1 shift."
+
   attr_accessor :request_shift_id
 
   def display_open_req_info

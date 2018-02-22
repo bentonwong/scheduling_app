@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update]
-  before_action :import_weekday_hash, only: [:new, :edit]
+  before_action :import_weekday_hash, only: [:new, :create, :edit, :update]
   before_action :authorized?
   before_action :employee_authorized?
 
@@ -14,7 +14,7 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
-    @team.save ? (redirect_to team_path(@team)) : (redirect_to new_team_path)
+    @team.save ? (redirect_to team_path(@team)) : (render :action => 'new')
   end
 
   def show
@@ -25,7 +25,7 @@ class TeamsController < ApplicationController
 
   def update
     @team.update(team_params)
-    redirect_to @team
+    @team.save ? (redirect_to @team) : (render :action => 'edit')
   end
 
   private

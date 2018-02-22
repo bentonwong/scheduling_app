@@ -2,25 +2,39 @@
 
   <%= form_for team do |f| %>
 
+    <% if team.errors.any? %>
+      <div id="error_explanation">
+        <h6>
+          <%= pluralize(team.errors.count, "error") %> prohibited
+          this team from being saved:
+        </h6>
+
+        <ul>
+        <% team.errors.full_messages.each do |msg| %>
+          <li class="red-text"><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="row">
       <div class="col s6">
         <%= f.label :name %>
-        <%= f.text_field :name %>
+        <%= f.text_field :name  %>
       </div>
     </div>
 
     <div class="row">
       <div class="col s6">
           <%= f.label :start_day, "Day of the Week Shifts Will Start"%>
-          <%= f.select :start_day, @weekdays %>
-
+          <%= f.select :start_day, weekdays %>
       </div>
     </div>
 
     <div class="row">
       <div class="col s6">
         <%= f.label :shift_length, "Length of Weekly Shift Block (days)" %>
-        <%= f.select :shift_length, @shift_length_values %>
+        <%= f.select :shift_length, shift_length_values %>
       </div>
     </div>
   </div>

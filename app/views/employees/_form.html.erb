@@ -2,6 +2,21 @@
 
   <%= form_for employee do |f| %>
 
+    <% if employee.errors.any? %>
+      <div id="error_explanation">
+        <h6>
+          <%= pluralize(employee.errors.count, "error") %> prohibited
+          this employee from being saved:
+        </h6>
+
+        <ul>
+        <% employee.errors.full_messages.each do |msg| %>
+          <li class="red-text"><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="row">
       <div class="col s6">
         <%= f.label :name %>

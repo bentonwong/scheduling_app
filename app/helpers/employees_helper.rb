@@ -17,6 +17,8 @@ module EmployeesHelper
       {msg: "WAITING", color: "grey"}
     elsif response.answer === "decline"
       {msg: "DECLINED", color: "red"}
+    elsif response.answer === "accept"
+      {msg: "ACCEPTED", color: "green"}
     else
       {msg: "EXPIRED", color: "red"}
     end

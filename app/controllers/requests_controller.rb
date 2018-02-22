@@ -10,8 +10,12 @@ class RequestsController < ApplicationController
         @request.responses.build(shift: request_shift, employee: request_shift.employee)
       end
     end
-    @request.save
-    redirect_to shift_details_path(team_id: @shift.team.id, id: @shift.id)
+    if @request.save
+      redirect_to shift_details_path(team_id: @shift.team.id, id: @shift.id)
+    else
+      @potential_trades = @shift.get_potential_trades
+      render :template => 'employees/shift_details'
+    end
   end
 
   def update

@@ -2,7 +2,7 @@ class ShiftsController < ApplicationController
   before_action :authorized?
   before_action :employee_authorized?
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
-  before_action :set_team, only: [:index, :new, :edit]
+  before_action :set_team, only: [:index, :new, :create, :edit]
 
   def index
     @events_by_date = @team.events_by_date
@@ -17,7 +17,7 @@ class ShiftsController < ApplicationController
 
   def create
     Shift.create_shift(*shift_params)
-    redirect_to team_shifts_path
+    redirect_to team_shifts_path(@team)
   end
 
   def show

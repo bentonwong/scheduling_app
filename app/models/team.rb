@@ -3,6 +3,9 @@ class Team < ApplicationRecord
   has_many :team_employees
   has_many :employees, through: :team_employees
 
+  validates :name, presence: :true
+  validates :name, uniqueness: :true
+
   WEEKDAY_HASH = {0 => "Sunday",
       1 => "Monday",
       2 => "Tuesday",

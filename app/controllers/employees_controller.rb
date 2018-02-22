@@ -1,7 +1,7 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update]
   before_action :authorized?
-  before_action :set_teams, only: [:new, :edit]
+  before_action :set_teams, only: [:new, :create, :edit, :update]
   before_action :employee_authorized?, except: [:dashboard, :shift_details]
 
   def index
@@ -25,7 +25,7 @@ class EmployeesController < ApplicationController
 
   def update
     @employee.update(employee_params)
-    redirect_to @employee
+    @employee.save ? (redirect_to @employee) : (render :edit)
   end
 
   def dashboard

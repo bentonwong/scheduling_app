@@ -1,6 +1,6 @@
 <h4 class="center-align">Create Team</h4>
 
-<%= render partial: "form", locals: {team: @team} %>
+<%= render partial: "form", locals: {team: @team, weekdays: @weekdays, shift_length_values: @shift_length_values} %>
 
 <button class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50" data-tooltip="Cancel" style="margin-left:1em">
     <i class="material-icons icon-white"><%= link_to "cancel", teams_path, method: :get, class: "icon-white" %></i>
