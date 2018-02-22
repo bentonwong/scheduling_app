@@ -66,7 +66,6 @@ class EmployeesController < ApplicationController
     end
 
     def set_shift_picker_params
-      @shift_calendar_form = Employee.new
       @employee_team_select = {}
       @employee.teams.each { |team| @employee_team_select[team.name] = team.id }
     end

@@ -23,13 +23,13 @@
     <div class="divider"></div>
     <div class="row"></div>
     <div class="center-align">
-      <%= @employee.teams.length === 1 ? ('View Your Team Schedule') : ('View Your Team Schedules') %>
+      <%= "View Your Team Schedule".pluralize(@employee.teams.length) %>
     </div>
     <div class="row"></div>
     <div class="row center-align">
-      <%= form_for @shift_calendar_form, :url => url_for(controller: 'employees', action: 'dashboard'), :method => "get" do |f| %>
+      <%= form_for @employee, :url => url_for(controller: 'employees', action: 'dashboard'), :method => "get" do |f| %>
         <div class="col s7 offset-s1">
-          <%= f.select :team_ids, @employee_team_select %>
+          <%= f.select :team_ids, @employee_team_select, :selected => "0" %>
         </div>
         <div>
           <button type="submit" class="col s3 waves-effect waves-light btn" style="margin-top: 3px">

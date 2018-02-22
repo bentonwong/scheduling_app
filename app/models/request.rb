@@ -30,8 +30,16 @@ class Request < ApplicationRecord
 
   def cancel_if_shift_started_or_all_responses_declined_expired
     shift = self.shift
-    self.status = "canceled" if shift.started? || self.all_responses_declined? || self.all_responses_expired?
+    self.update(status: 'canceled') if shift.started? || self.all_responses_declined? || self.all_responses_expired?
     self.save
+  end
+
+  def self.open_requests
+    Request.where(status: 'sent')
+  end
+
+  def self.update_open_requests
+    self.open_requests.each { |request| request.cancel_if_shift_started_or_all_responses_declined_expired }
   end
 
 end

@@ -26,19 +26,29 @@ class Response < ApplicationRecord
     "#{res_dates[:start].strftime("%m/%d/%Y")} to #{res_dates[:end].strftime("%m/%d/%Y")}"
   end
 
-  def expire_response_if_either_shift_started
-    if self.shift.started? || self.request.shift.started?
-      self.answer === "expired"
+  def self.swap_shifts(res, req)
+    req_shift, res_shift = req.shift, res.shift
+    req_shift.employee, res_shift.employee  = res_shift.employee, req_shift.employee
+    req.update(status: 'completed')
+    instances = [req_shift, res_shift, req, res]
+    instances.each { |instance| instance.save }
+  end
+
+  def expire_res
+    req = self.request
+    res_shift, req_shift = self.shift, req.shift
+    if res_shift.started? || req_shift.started? || ['completed', 'canceled'].include?(req.status)
+      self.update(answer: 'expired')
       self.save
     end
   end
 
-  def self.swap_shifts(res, req)
-    req_shift, res_shift = req.shift, res.shift
-    req_shift.employee, res_shift.employee  = res_shift.employee, req_shift.employee
-    req.update(status: "completed")
-    instances = [req_shift, res_shift, req, res]
-    instances.each { |instance| instance.save }
+  def self.open_responses
+    self.where(answer: 'waiting')
+  end
+
+  def self.update_open_responses
+    self.open_responses.each { |res| res.expire_res }
   end
 
 end
