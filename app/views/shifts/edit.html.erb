@@ -29,7 +29,7 @@
       <div class="row">
         <div class="col s4">
           <%= f.label :employee_id %>
-          <%= f.select :employee_id, @employees %>
+          <%= f.collection_select :employee_id, @employees, :id, :name %>
         </div>
       </div>
 
@@ -87,16 +87,18 @@
     </table>
   </div>
 
-    <% end %>
+  <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="top" data-delay="50" data-tooltip="Save" style="margin-left:1em">
+      <i class="material-icons icon-white"><%= f.submit "save"%></i>
+  </button>
 
-    <button class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50" data-tooltip="Cancel" style="margin-left:1em">
-        <i class="material-icons icon-white"><%= link_to "cancel", team_shift_path(team_id: @team.id, id: @shift.id), method: :get, class: "icon-white" %></i>
-    </button>
+  <% end %>
 
-    <button class="btn-floating btn-large green tooltipped" data-position="top" data-delay="50" data-tooltip="Delete" style="margin-left:1em">
-        <i class="material-icons icon-white"><%= link_to "delete", team_shift_path(team_id: @team.id, id: @shift.id), method: :delete, class: "icon-white" %></i>
-    </button>
-  </div>
+  <button class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50" data-tooltip="Cancel" style="margin-left:1em">
+      <i class="material-icons icon-white"><%= link_to "cancel", team_shift_path(team_id: @team.id, id: @shift.id), method: :get, class: "icon-white" %></i>
+  </button>
 
-
+  <button class="btn-floating btn-large orange tooltipped" data-position="top" data-delay="50" data-tooltip="Delete" style="margin-left:1em">
+      <i class="material-icons icon-white"><%= link_to "delete", team_shift_path(team_id: @team.id, id: @shift.id), method: :delete, class: "icon-white" %></i>
+  </button>
 </div>
+<div class="row"></div>

@@ -24,7 +24,7 @@ class ShiftsController < ApplicationController
   end
 
   def edit
-    @employees = @team.assignable_employee_hash
+    @employees = @team.assignable_employee_array
   end
 
   def update

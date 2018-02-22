@@ -24,6 +24,7 @@ class EmployeesController < ApplicationController
   end
 
   def update
+    raise params.inspect
     @employee.update(employee_params)
     @employee.save ? (redirect_to @employee) : (render :edit)
   end
@@ -32,7 +33,6 @@ class EmployeesController < ApplicationController
     @employee = current_user
     @next_shift_start_end_days = @employee.get_next_shift_start_end_days
     set_dashboard_calendar
-    @response = Response.new
   end
 
   def shift_details

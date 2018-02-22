@@ -72,13 +72,6 @@ class Team < ApplicationRecord
     self.employees.select { |employee| employee.assignable }
   end
 
-  def assignable_employee_hash
-    employee_hash = {}
-    team_list = self.assignable_employee_array
-    team_list.each { |employee| employee_hash[employee.name] = employee.id }
-    employee_hash
-  end
-
   def events_by_date
     team_shift_ids = self.collect_shift_ids_by_team
     Day.where(shift_id: team_shift_ids, workday: true).group_by(&:value)

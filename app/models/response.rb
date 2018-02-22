@@ -15,15 +15,11 @@ class Response < ApplicationRecord
   end
 
   def display_req_info
-    shift = self.request.shift
-    req_dates = shift.get_start_end_day_values
-    "#{req_dates[:start].strftime("%m/%d/%Y")} to #{req_dates[:end].strftime("%m/%d/%Y")}"
+    Day.format_dates(self.request.shift)
   end
 
   def display_res_info
-    shift = self.shift
-    res_dates = shift.get_start_end_day_values
-    "#{res_dates[:start].strftime("%m/%d/%Y")} to #{res_dates[:end].strftime("%m/%d/%Y")}"
+    Day.format_dates(self.shift)
   end
 
   def self.swap_shifts(res, req)
@@ -49,6 +45,21 @@ class Response < ApplicationRecord
 
   def self.update_open_responses
     self.open_responses.each { |res| res.expire_res }
+  end
+
+  def self.update_response(params)
+    res_id, choice = params.values_at(:id, :choice)
+    res = Response.find_by_id(res_id)
+    res.update(answer: choice)
+    req = res.request
+    if choice === "accept"
+      Response.swap_shifts(res, req)
+    else
+      req.cancel_if_shift_started_or_all_responses_declined_expired
+      req.save
+      res.save
+    end
+    req
   end
 
 end

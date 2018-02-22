@@ -9,14 +9,12 @@ class Employee < ApplicationRecord
   validates :name, presence: :true
   validates :name, uniqueness: :true
 
-  attr_accessor :init_team_id
-
   def next_shift
     Shift.joins(:days).where('shifts.employee_id = ? AND days.value >= ?', self.id, Date.today).order('days.value ASC').limit(1).first
   end
 
   def get_next_shift_start_end_days
-    self.next_shift.get_start_end_day_values
+    self.next_shift.get_start_end_day_values if self.next_shift
   end
 
   def open_requests?
@@ -32,7 +30,10 @@ class Employee < ApplicationRecord
   end
 
   def closed_requests
-    self.requests.select { |req| req.status != 'sent' && !req.shift.started? }
+    self.requests.select { |req|
+      req.status != 'sent' &&
+      !req.shift.started?
+    }
   end
 
   def awaiting_responses?
@@ -40,7 +41,7 @@ class Employee < ApplicationRecord
   end
 
   def awaiting_responses
-    self.responses.select { |res| res.request.status === "sent" && !res.request.shift.started? && res.answer === "waiting"}
+    self.responses.select { |res| res.request.status === "sent" && !res.request.shift.started? && res.answer === "waiting" }
   end
 
 end

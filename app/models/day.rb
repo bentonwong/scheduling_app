@@ -24,4 +24,13 @@ class Day < ApplicationRecord
     days.select { |day| day.shift.team === team }
   end
 
+  def self.format_dates(shift)
+    dates = shift.get_start_end_day_values
+    "#{self.format_date(dates[:start])} to #{self.format_date(dates[:end])}"
+  end
+
+  def self.format_date(date)
+    date.strftime("%m/%d/%Y")
+  end
+
 end

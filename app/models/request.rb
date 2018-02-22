@@ -8,16 +8,8 @@ class Request < ApplicationRecord
 
   attr_accessor :request_shift_id
 
-  def display_open_req_info
-    shift = self.shift
-    dates = shift.get_start_end_day_values
-    "#{dates[:start].strftime("%m/%d/%Y")} to #{dates[:end].strftime("%m/%d/%Y")}"
-  end
-
-  def display_closed_req_info
-    shift = self.shift
-    dates = shift.get_start_end_day_values
-    "#{dates[:start].strftime("%m/%d/%Y")} to #{dates[:end].strftime("%m/%d/%Y")}"
+  def display_req_info
+    Day.format_dates(self.shift)
   end
 
   def all_responses_declined?
@@ -40,6 +32,23 @@ class Request < ApplicationRecord
 
   def self.update_open_requests
     self.open_requests.each { |request| request.cancel_if_shift_started_or_all_responses_declined_expired }
+  end
+
+  def self.add_resp_obj(responses, request)
+    responses.each do |key, value|
+      if value[:add_to_request] === "1"
+        request_shift = Shift.find_by_id(value[:id])
+        request.responses.build(shift: request_shift, employee: request_shift.employee)
+      end
+    end
+  end
+
+  def self.cancel_request(id)
+    request = Request.find_by_id(id)
+    shift = request.shift
+    request.status = 'canceled'
+    request.save
+    shift
   end
 
 end

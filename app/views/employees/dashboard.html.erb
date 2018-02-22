@@ -61,7 +61,7 @@
       <% if @employee.open_requests? %>
         <% @employee.open_requests.each do |request| %>
           <div style="padding: 1em; font-size: small">
-            <%= link_to request.display_open_req_info, shift_details_path(request.shift.team, request.shift), method: :get %>
+            <%= link_to request.display_req_info, shift_details_path(request.shift.team, request.shift), method: :get %>
             <span class="grey darken-1 white-text z-depth-2" style="margin: 0 1em; padding: 5px; font-size: x-small">
               WAITING
             </span>
@@ -101,7 +101,7 @@
         <div class="row" style="font-size: small">
           <% @employee.closed_requests.each do |request| %>
             <div style="margin: 10px 0">
-              <%= link_to request.display_closed_req_info, shift_details_path(request.shift.team, request.shift), method: :get %>
+              <%= link_to request.display_req_info, shift_details_path(request.shift.team, request.shift), method: :get %>
               <span class="<%= closed_swap_request_tag(request)[:color] %> white-text z-depth-2" style="margin: 0 1em; padding: 5px; font-size: x-small">
                 <%= closed_swap_request_tag(request)[:msg] %>
               </span>
