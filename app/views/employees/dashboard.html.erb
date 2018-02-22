@@ -12,7 +12,7 @@
             <b><%= link_to "#{@next_shift_start_end_days[:start].strftime("%A, %m/%d/%Y")} to #{@next_shift_start_end_days[:end].strftime("%A, %m/%d/%Y")}", shift_details_path(team_id: @employee.next_shift.team_id, id: @employee.next_shift), method: :get %></b>
           </p>
           <p class="center-align">
-            on <b><%= @team.name %></b>
+            on <b><%= @employee.next_shift.team.name %></b>
           </p>
         <% else %>
           <b>

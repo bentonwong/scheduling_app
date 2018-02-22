@@ -5,7 +5,7 @@ task :update_requests => :environment do
   puts "done."
 end
 
-task :send_reminders => :environment do
+task :update_responses => :environment do
   puts "Updating responses..."
   Response.update_open_responses
   puts "done."
