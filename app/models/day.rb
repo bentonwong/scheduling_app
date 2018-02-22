@@ -10,7 +10,7 @@ class Day < ApplicationRecord
   end
 
   def self.holiday?(day)
-    self.get_holiday(day).length > 0
+    !self.get_holiday(day).empty?
   end
 
   def self.date_of_next(day)

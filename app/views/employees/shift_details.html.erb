@@ -3,7 +3,7 @@
 </div>
 
 <div class="row">
-  <% if @shift.employee === current_user && @shift != @shift.team.current_shift && !@shift.started? && !@shift.active_swap_requests? %>
+  <% if @shift.employee === current_user && @shift != @shift.team.current_shift && !@shift.started? && !@shift.active_swap_requests? && !@potential_trades.empty? %>
     <div class="row">
       <div class="divider"></div>
     </div>

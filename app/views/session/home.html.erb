@@ -7,7 +7,7 @@
       </div>
 
       <div class="col s4">
-        <%= f.select :id, @employee_list %>
+        <%= f.collection_select :id, @employees, :id, :name %>
       </div>
 
       <div class="col s2" style="padding-top: 3px">

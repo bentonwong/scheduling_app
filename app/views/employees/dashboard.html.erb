@@ -7,18 +7,18 @@
         Your Next Shift
       </h6>
     <p class="center-align">
-        <% if @next_shift_start_end_days %>
-          <p class="center-align">
-            <b><%= link_to "#{@next_shift_start_end_days[:start].strftime("%A, %m/%d/%Y")} to #{@next_shift_start_end_days[:end].strftime("%A, %m/%d/%Y")}", shift_details_path(team_id: @employee.next_shift.team_id, id: @employee.next_shift), method: :get %></b>
-          </p>
-          <p class="center-align">
-            on <b><%= @employee.next_shift.team.name %></b>
-          </p>
-        <% else %>
-          <b>
-            None
-          </b>
-        <% end %>
+      <% if @next_shift_start_end_days %>
+        <p class="center-align">
+          <b><%= link_to "#{@next_shift_start_end_days[:start].strftime("%A, %m/%d/%Y")} to #{@next_shift_start_end_days[:end].strftime("%A, %m/%d/%Y")}", shift_details_path(team_id: @employee.next_shift.team_id, id: @employee.next_shift), method: :get %></b>
+        </p>
+        <p class="center-align">
+          on <b><%= @employee.next_shift.team.name %></b>
+        </p>
+      <% else %>
+        <b>
+          None
+        </b>
+      <% end %>
     </p>
     <div class="divider"></div>
     <div class="row"></div>
@@ -29,7 +29,7 @@
     <div class="row center-align">
       <%= form_for @employee, :url => url_for(controller: 'employees', action: 'dashboard'), :method => "get" do |f| %>
         <div class="col s7 offset-s1">
-          <%= f.select :team_ids, @employee_team_select, :selected => "0" %>
+          <%= f.collection_select :team_ids, @employee.teams, :id, :name,  {include_blank: 'Please select a team', selected:""} %>
         </div>
         <div>
           <button type="submit" class="col s3 waves-effect waves-light btn" style="margin-top: 3px">

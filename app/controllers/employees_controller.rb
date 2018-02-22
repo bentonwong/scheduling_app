@@ -29,9 +29,9 @@ class EmployeesController < ApplicationController
   end
 
   def dashboard
-    set_dashboard_employee_info
-    set_shift_picker_params
-    set_calendar_params
+    @employee = current_user
+    @next_shift_start_end_days = @employee.get_next_shift_start_end_days
+    set_dashboard_calendar
     @response = Response.new
   end
 
@@ -44,7 +44,7 @@ class EmployeesController < ApplicationController
   private
 
     def employee_params
-      params.require(:employee).permit(:name, :assignable, :admin, :team_ids =>[])
+      params.require(:employee).permit(:name, :assignable, :admin, :team_ids)
     end
 
     def set_employee
@@ -55,24 +55,20 @@ class EmployeesController < ApplicationController
       @teams = Team.all
     end
 
-    def set_calendar_params
-      team_ids = params.dig(:employee, :team_ids) || @employee.teams.first.id
-      if team_ids
-        @team = Team.find_by_id(team_ids)
-        team_shift_ids = @team.collect_shift_ids_by_team
-        @events_by_date = Day.where(shift_id: team_shift_ids, workday: true).group_by(&:value)
-        @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    def set_dashboard_calendar
+      if params[:employee]
+        if !employee_params[:team_ids].blank?
+          team_id = employee_params[:team_ids]
+        else
+          team_id = @employee.teams.first.id
+        end
+      else
+        team_id = @employee.teams.first.id
       end
-    end
-
-    def set_shift_picker_params
-      @employee_team_select = {}
-      @employee.teams.each { |team| @employee_team_select[team.name] = team.id }
-    end
-
-    def set_dashboard_employee_info
-      @employee = current_user
-      @next_shift_start_end_days = @employee.get_next_shift_start_end_days
+      @team = Team.find_by_id(team_id)
+      team_shift_ids = @team.collect_shift_ids_by_team
+      @events_by_date = Day.where(shift_id: team_shift_ids, workday: true).group_by(&:value)
+      @date = params[:date] ? Date.parse(params[:date]) : Date.today
     end
 
 end

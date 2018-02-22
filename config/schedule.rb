@@ -23,3 +23,8 @@ every 1.day, :at => '12:00 am' do
   runner "Request.update_open_requests"
   runner "Response.update_open_responses"
 end
+
+every :hour do
+  runner "Request.update_open_requests"
+  runner "Response.update_open_responses"
+end

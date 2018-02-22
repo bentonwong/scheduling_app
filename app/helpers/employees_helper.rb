@@ -5,7 +5,7 @@ module EmployeesHelper
       {msg: "COMPLETED", color: "green"}
     elsif request.all_responses_declined?
       {msg: "DECLINED", color: "red"}
-    elsif request.all_responses_expired?
+    elsif request.all_responses_expired? || request.shift.started?
       {msg: "EXPIRED", color: "red"}
     else
       {msg: "CANCELED", color: "yellow darken-3"}

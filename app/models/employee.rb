@@ -20,7 +20,7 @@ class Employee < ApplicationRecord
   end
 
   def open_requests?
-    self.open_requests.length > 0
+    !self.open_requests.empty?
   end
 
   def open_requests
@@ -28,7 +28,7 @@ class Employee < ApplicationRecord
   end
 
   def closed_requests?
-    self.closed_requests.length > 0
+    !self.closed_requests.empty?
   end
 
   def closed_requests
@@ -36,7 +36,7 @@ class Employee < ApplicationRecord
   end
 
   def awaiting_responses?
-    self.awaiting_responses.length > 0
+    !self.awaiting_responses.empty?
   end
 
   def awaiting_responses

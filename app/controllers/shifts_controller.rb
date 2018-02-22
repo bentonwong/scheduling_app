@@ -11,7 +11,7 @@ class ShiftsController < ApplicationController
 
   def new
     @shift = Shift.new
-    @employees = @team.assignable_employee_hash
+    @employees = @team.employees
     @weeks = Shift.weeks_array
   end
 
@@ -30,10 +30,10 @@ class ShiftsController < ApplicationController
   def update
     @shift.update(shift_params)
     if @shift.save
-        redirect_to team_shift_path(@shift)
-      else
-        redirect_to edit_team_shift_path(team_id: @shift.team.id, id: @shift.id)
-      end
+      redirect_to team_shift_path(@shift)
+    else
+      redirect_to edit_team_shift_path(team_id: @shift.team.id, id: @shift.id)
+    end
   end
 
   def destroy
