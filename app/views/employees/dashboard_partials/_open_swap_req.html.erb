@@ -7,7 +7,7 @@
 <div class="row">
   <% if employee_open_requests?(employee) %>
     <% employee_open_requests(employee).each do |request| %>
-      <div style="padding: 1em; font-size: small">
+      <div class="center-align" style="margin: 10px 0; font-size: small">
         <%= link_to display_req_info(request), shift_details_path(request.shift.team, request.shift), method: :get %>
         <span class="grey darken-1 white-text z-depth-2" style="margin: 0 1em; padding: 5px; font-size: x-small">
           WAITING

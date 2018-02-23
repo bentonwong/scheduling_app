@@ -72,6 +72,10 @@ module EmployeesHelper
     instance.display_req_info
   end
 
+  def display_res_info(response)
+    response.display_res_info
+  end
+
   def employee_awaiting_responses?(employee)
     employee.awaiting_responses?
   end
