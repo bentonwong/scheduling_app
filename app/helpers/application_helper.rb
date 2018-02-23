@@ -12,6 +12,10 @@ module ApplicationHelper
     current_user.admin
   end
 
+  def current_year
+    Time.current.year
+  end
+
   private
 
     def authorized?

@@ -19,7 +19,7 @@
 
   <body>
     <nav>
-      <div class="nav-wrapper blue">
+      <div class="nav-wrapper teal lighten-2">
           <a href="/" class="left brand-logo" style="padding-left: 20px">WhenUWork<i class="material-icons icon-white large">schedule</i></a>
           <% if current_user %>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -51,4 +51,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
   </body>
+  <footer class="center-align grey-text" style="font-size: x-small">
+    <p>Copyright © <%= current_year %> Benton Wong</p>
+  </footer>
 </html>
