@@ -24,7 +24,6 @@ class EmployeesController < ApplicationController
   end
 
   def update
-    raise params.inspect
     @employee.update(employee_params)
     @employee.save ? (redirect_to @employee) : (render :edit)
   end

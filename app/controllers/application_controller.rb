@@ -5,5 +5,6 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   include ShiftsHelper
   include EmployeesHelper
+  include TeamsHelper
 
 end

@@ -42,8 +42,8 @@
         <tbody>
         <% shift.get_shift_days.each do |day| %>
           <tr>
-            <td class="center-align"><%= day.value.strftime("%m/%d/%Y") %></td>
-            <td class="center-align"><%= day.get_day_of_the_week %></td>
+            <td class="center-align"><%= date_formatted(day) %></td>
+            <td class="center-align"><%= get_day_of_the_week(day) %></td>
             <td class="center-align">
               <% if day.workday %>
                 <i class="material-icons small icon-green">check</i>

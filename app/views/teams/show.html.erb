@@ -13,7 +13,7 @@
         Number of Members: <%= @team.employees.length %>
       </p>
       <p>
-        Day of the Week Shifts Start: <%= @team.start_day_as_string %>
+        Day of the Week Shifts Start: <%= team_start_day_as_string(@team) %>
       </p>
       <p>
         Length of Weekly Shift Block (days): <%= @team.shift_length %>
@@ -48,7 +48,7 @@
         </thead>
 
         <tbody>
-        <% @team.sorted_team_employees_by_id.each do |employee| %>
+        <% team_employees_sorted_by(@team).each do |employee| %>
           <tr>
             <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
             <td><%= employee.name %></td>

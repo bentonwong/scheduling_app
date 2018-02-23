@@ -24,4 +24,28 @@ module EmployeesHelper
     end
   end
 
+  def active_swap_requests?(shift)
+    shift.active_swap_requests?
+  end
+
+  def shift_team_curent_shift(shift)
+    shift.team.current_shift
+  end
+
+  def shift_started?(shift)
+    shift.started?
+  end
+
+  def responses_of_sent_request(shift)
+    shift.responses_of_sent_request
+  end
+
+  def concat_response_info(response)
+    response.concat_response_info
+  end
+
+  def active_swap_request(shift)
+    shift.active_swap_request
+  end
+
 end
