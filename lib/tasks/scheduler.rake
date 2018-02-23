@@ -1,12 +1,7 @@
 desc "This task is called by the Heroku scheduler add-on"
-task :update_requests => :environment do
-  puts "Updating requests..."
+task :update_reqs_resps => :environment do
+  puts "Updating requests & responses..."
   Request.update_open_requests
-  puts "done."
-end
-
-task :update_responses => :environment do
-  puts "Updating responses..."
   Response.update_open_responses
   puts "done."
 end
