@@ -1,116 +1,36 @@
 <div class="row"></div>
 
 <div class="row">
+
   <div class="col s9">
-    <div class="divider"></div>
-      <h6 class="center-align">
-        Your Next Shift
-      </h6>
-    <p class="center-align">
-      <% if @next_shift_start_end_days %>
-        <p class="center-align">
-          <b><%= link_to "#{@next_shift_start_end_days[:start].strftime("%A, %m/%d/%Y")} to #{@next_shift_start_end_days[:end].strftime("%A, %m/%d/%Y")}", shift_details_path(team_id: @employee.next_shift.team_id, id: @employee.next_shift), method: :get %></b>
-        </p>
-        <p class="center-align">
-          on <b><%= @employee.next_shift.team.name %></b>
-        </p>
-      <% else %>
-        <b>
-          None
-        </b>
-      <% end %>
-    </p>
+
     <div class="divider"></div>
     <div class="row"></div>
-    <div class="center-align">
-      <%= "View Your Team Schedule".pluralize(@employee.teams.length) %>
-    </div>
-    <div class="row"></div>
-    <div class="row center-align">
-      <%= form_for @employee, :url => url_for(controller: 'employees', action: 'dashboard'), :method => "get" do |f| %>
-        <div class="col s7 offset-s1">
-          <%= f.collection_select :team_ids, @employee.teams, :id, :name,  {include_blank: 'Please select a team', selected:""} %>
-        </div>
-        <div>
-          <button type="submit" class="col s3 waves-effect waves-light btn" style="margin-top: 3px">
-          <%= f.submit "Submit" %>
-          </button>
-        </div>
-      <% end %>
-    </div>
+
+      <%= render partial: "employees/dashboard_partials/next_shift", locals: {employee: @employee, next_shift_start_end_days: @next_shift_start_end_days} %>
+
     <div class="divider"></div>
-    <div>
-      <div class="row"></div>
-      <% if @team %>
-        <h6 class="center-align">
-          <%= @team.name %> Shifts
-        </h6>
-        <div class="row"></div>
-        <%= render partial: "shifts/calendar", locals: {date: @date, events_by_date: @events_by_date, team_id: @team.id, dashboard: true } %>
-      <% else %>
-        <%= "Please select a team to view its schedule." %>
-      <% end %>
-    </div>
+    <div class="row"></div>
+
+      <%= render partial: "employees/dashboard_partials/select_schedule", locals: {employee: @employee} %>
+
+    <div class="divider"></div>
+    <div class="row"></div>
+
+      <%= render partial: "employees/dashboard_partials/schedule", locals: {team: @team, date: @date, events_by_date: @events_by_date} %>
+
   </div>
-  <div class="center-align">
-      <div class="row col s3 yellow">
-        <h6>
-          Your Open Swap Requests
-        </h6>
-      </div>
-      <% if @employee.open_requests? %>
-        <% @employee.open_requests.each do |request| %>
-          <div style="padding: 1em; font-size: small">
-            <%= link_to request.display_req_info, shift_details_path(request.shift.team, request.shift), method: :get %>
-            <span class="grey darken-1 white-text z-depth-2" style="margin: 0 1em; padding: 5px; font-size: x-small">
-              WAITING
-            </span>
-          </div>
-        <% end %>
-      <% else %>
-        <p>None</p>
-      <% end %>
+
+  <div class="col s3">
+    <div class="center-align">
+      <%= render partial: "employees/dashboard_partials/open_swap_req", locals: {employee: @employee} %>
     </div>
     <div class="center-align">
-      <div class="row col s3 orange center-align">
-        <h6>
-          Swap Requests From Others
-        </h6>
-      </div>
-      <% if @employee.awaiting_responses? %>
-        <% @employee.awaiting_responses.each do |res| %>
-          <div style="padding: 1em; font-size: small">
-            <%= form_for res do |f| %>
-              <%= "#{res.request.employee.name} has requested to swap the" %> <%= link_to res.display_req_info, shift_details_path(team_id: res.request.shift.team.id, id: res.request.shift_id), method: :get %> shift for your <%= link_to res.display_res_info, shift_details_path(team_id: res.shift.team.id, id: res.shift_id), method: :get%> shift.<br />
-              <%= f.button "Accept", name: "choice", value: "accept", class: "green white-text z-depth-2", style:"margin: 0.5em 0.5em 0 0.5em" %>
-              <%= f.button "Decline", name: "choice", value: "decline", class: "red white-text z-depth-2", style:"margin: 0.5em 0.5em 0 0.5em" %>
-            <% end %>
-          </div>
-        <% end %>
-      <% else %>
-        <p>None</p>
-      <% end %>
+      <%= render partial: "employees/dashboard_partials/other_swap_req", locals: {employee: @employee} %>
     </div>
     <div class="center-align">
-      <div class="row col s3 green center-align">
-        <h6>
-          Recent Closed Swap Requests
-        </h6>
-      </div>
-      <% if @employee.closed_requests? %>
-        <div class="row" style="font-size: small">
-          <% @employee.closed_requests.each do |request| %>
-            <div style="margin: 10px 0">
-              <%= link_to request.display_req_info, shift_details_path(request.shift.team, request.shift), method: :get %>
-              <span class="<%= closed_swap_request_tag(request)[:color] %> white-text z-depth-2" style="margin: 0 1em; padding: 5px; font-size: x-small">
-                <%= closed_swap_request_tag(request)[:msg] %>
-              </span>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <p>None</p>
-      <% end %>
+      <%= render partial: "employees/dashboard_partials/closed_swap_req", locals: {employee: @employee} %>
     </div>
   </div>
+
 </div>

@@ -1,0 +1,21 @@
+<div class="row orange" style="padding: 0.5em">
+  <h6>
+    Swap Requests From Others
+  </h6>
+</div>
+
+<div class="row">
+  <% if employee_awaiting_responses?(employee) %>
+    <% employee_awaiting_responses(employee).each do |res| %>
+      <div style="padding: 1em; font-size: small">
+        <%= form_for res do |f| %>
+          <%= "#{res.request.employee.name} has requested to swap the" %> <%= link_to display_req_info(response), shift_details_path(team_id: res.request.shift.team.id, id: res.request.shift_id), method: :get %> shift for your <%= link_to res.display_res_info, shift_details_path(team_id: res.shift.team.id, id: res.shift_id), method: :get%> shift.<br />
+          <%= f.button "Accept", name: "choice", value: "accept", class: "green white-text z-depth-2", style:"margin: 0.5em 0.5em 0 0.5em" %>
+          <%= f.button "Decline", name: "choice", value: "decline", class: "red white-text z-depth-2", style:"margin: 0.5em 0.5em 0 0.5em" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>None</p>
+  <% end %>
+</div>

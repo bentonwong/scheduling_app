@@ -1,0 +1,17 @@
+<h6 class="center-align">
+  Your Next Shift
+</h6>
+<p class="center-align">
+  <% if next_shift_start_end_days %>
+    <p class="center-align">
+      <b><%= link_to "#{format_next_shift_dates(next_shift_start_end_days[:start])} to #{format_next_shift_dates(next_shift_start_end_days[:end])}", shift_details_path(team_id: employee_next_shift(employee).team_id, id: employee_next_shift(employee).id), method: :get %></b>
+    </p>
+    <p class="center-align">
+      on <b><%= employee_next_shift(employee).team.name %></b>
+    </p>
+  <% else %>
+    <b>
+      None
+    </b>
+  <% end %>
+</p>

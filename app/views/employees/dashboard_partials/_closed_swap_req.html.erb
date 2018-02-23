@@ -1,0 +1,22 @@
+<div class="row green" style="padding: 0.5em">
+  <h6>
+    Recent Closed Swap Requests
+  </h6>
+</div>
+
+<div class="row">
+  <% if employee_closed_requests?(employee) %>
+    <div class="row" style="font-size: small">
+      <% employee_closed_requests(employee).each do |request| %>
+        <div style="margin: 10px 0">
+          <%= link_to display_req_info(request), shift_details_path(request.shift.team, request.shift), method: :get %>
+          <span class="<%= closed_swap_request_tag(request)[:color] %> white-text z-depth-2" style="margin: 0 1em; padding: 5px; font-size: x-small">
+            <%= closed_swap_request_tag(request)[:msg] %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>None</p>
+  <% end %>
+</div>

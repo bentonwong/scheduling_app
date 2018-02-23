@@ -1,0 +1,16 @@
+<div class="center-align">
+  <%= "View Your Team Schedule".pluralize(employee.teams.length) %>
+</div>
+<div class="row"></div>
+<div class="row center-align">
+  <%= form_for employee, :url => url_for(controller: 'employees', action: 'dashboard'), :method => "get" do |f| %>
+    <div class="col s7 offset-s1">
+      <%= f.collection_select :team_ids, employee.teams, :id, :name,  {include_blank: 'Please select a team', selected:""} %>
+    </div>
+    <div>
+      <button type="submit" class="col s3 waves-effect waves-light btn" style="margin-top: 3px">
+      <%= f.submit "Submit" %>
+      </button>
+    </div>
+  <% end %>
+</div>

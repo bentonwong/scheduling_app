@@ -3,5 +3,5 @@
 <%= render partial: "form", locals: {team: @team, weekdays: @weekdays, shift_length_values: @shift_length_values} %>
 
 <button class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50" data-tooltip="Cancel" style="margin-left:1em">
-    <i class="material-icons icon-white"><%= link_to "cancel", team_path(@team), method: :get, class: "icon-white" %></i>
+  <i class="material-icons icon-white"><%= link_to "cancel", team_path(@team), method: :get, class: "icon-white" %></i>
 </button>

@@ -48,4 +48,44 @@ module EmployeesHelper
     shift.active_swap_request
   end
 
+  def sort_employees_by_id(employees)
+    employees.sort_by(&:id)
+  end
+
+  def employee_open_requests?(employee)
+    employee.open_requests?
+  end
+
+  def employee_open_requests(employee)
+    employee.open_requests
+  end
+
+  def employee_closed_requests?(employee)
+    employee.closed_requests?
+  end
+
+  def employee_closed_requests(employee)
+    employee.closed_requests
+  end
+
+  def display_req_info(instance)
+    instance.display_req_info
+  end
+
+  def employee_awaiting_responses?(employee)
+    employee.awaiting_responses?
+  end
+
+  def employee_awaiting_responses(employee)
+    employee.awaiting_responses
+  end
+
+  def employee_next_shift(employee)
+    employee.next_shift
+  end
+
+  def format_next_shift_dates(day)
+    day.strftime("%A, %m/%d/%Y")
+  end
+
 end

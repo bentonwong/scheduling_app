@@ -20,18 +20,21 @@
       </p>
     </div>
     <div class="col s4" style="margin-top: 50px">
+
       <button class="waves-effect waves-light blue btn-floating btn-large tooltipped" data-position="bottom" data-delay="50" data-tooltip="See shifts">
         <i class="material-icons icon-white"><%= button_to "schedule", team_shifts_path(@team), method: :get%></i>
       </button>
+
       <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="bottom" data-delay="50" data-tooltip="Go back" style="margin-left:1em">
         <i class="material-icons icon-white"><%= button_to "arrow_back", teams_path, method: :get %></i>
       </button>
+
       <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit shift details" style="margin-left:1em">
         <i class="material-icons icon-white"><%= button_to "edit", edit_team_path(@team), method: :get  %></i>
       </button>
+
     </div>
   </div>
-
 
   <% if !@team.employees.empty? %>
     <div>
@@ -67,4 +70,5 @@
       This team has no members.
     </p>
   <% end %>
+
 </div>

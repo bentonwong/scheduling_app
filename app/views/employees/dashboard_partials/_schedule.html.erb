@@ -1,0 +1,13 @@
+<% if team %>
+
+  <h6 class="center-align">
+    <%= team.name %> Shifts
+  </h6>
+
+  <div class="row"></div>
+
+  <%= render partial: "shifts/calendar", locals: {date: date, events_by_date: events_by_date, team_id: team.id, dashboard: true } %>
+
+<% else %>
+  <h6>Please select a team to view its schedule.</h6>
+<% end %>

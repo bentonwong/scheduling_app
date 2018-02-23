@@ -13,7 +13,7 @@
         </thead>
 
         <tbody>
-          <% @employees.sort_by(&:id).each do |employee| %>
+          <% sort_employees_by_id(@employees).each do |employee| %>
             <tr>
               <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
               <td><%= employee.name %></td>
