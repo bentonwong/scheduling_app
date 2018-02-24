@@ -65,13 +65,7 @@ ActiveRecord::Schema.define(version: 20180218154515) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
-    t.boolean "sunday", default: false
-    t.boolean "monday", default: false
-    t.boolean "tuesday", default: false
-    t.boolean "wednesday", default: false
-    t.boolean "thursday", default: false
-    t.boolean "friday", default: false
-    t.boolean "saturday", default: false
+    t.string "workday_prefs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

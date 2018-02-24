@@ -40,13 +40,13 @@
           </div>
         </theader>
         <tbody>
-          <% Team.days_of_the_week.each do |day| %>
+          <% team_days_of_the_week.each do |day| %>
             <tr>
               <td>
                 <%= day.upcase_first %>
               </td>
               <td>
-                <% if @team[day] %>
+                <% if @team.send(day) %>
                   <i class="material-icons small icon-green" style="vertical-align: bottom">check</i>
                 <% end %>
               </td>

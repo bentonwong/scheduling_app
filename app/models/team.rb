@@ -6,6 +6,8 @@ class Team < ApplicationRecord
   validates :name, presence: :true
   validates :name, uniqueness: :true
 
+  attr_accessor :sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday
+
   DAYS_OF_THE_WEEK = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
   WEEKDAY_TO_VALUE = {
@@ -73,6 +75,19 @@ class Team < ApplicationRecord
   def upcoming_shifts_days
     days = Day.where("value > ?", Date.today)
     days.select { |day| day.shift.team === self }
+  end
+
+  def workday_prefs_values
+    result = []
+    workday_prefs = self.split_workday_prefs
+    workday_prefs.each_with_index do |element, index|
+      result << index if element === '1'
+    end
+    result
+  end
+
+  def split_workday_prefs
+    self.workday_prefs.split(',')
   end
 
 end

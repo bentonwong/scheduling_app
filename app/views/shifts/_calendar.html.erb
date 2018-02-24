@@ -35,9 +35,9 @@
               <% events_by_date[date].each do |event| %>
                 <li>
                   <% if !dashboard %>
-                    <%= link_to Shift.find_by_id(event.shift_id).employee.name, team_shift_path(team_id: Shift.find_by_id(event.shift_id).team_id, id: event.shift_id), method: :get, style:"text-decoration: none"%>
+                    <%= link_to find_shift_by_id(event.shift_id).employee.name, team_shift_path(team_id: find_shift_by_id(event.shift_id).team_id, id: event.shift_id), method: :get, style:"text-decoration: none"%>
                   <% else %>
-                    <%= link_to Shift.find_by_id(event.shift_id).employee.name, shift_details_path(team_id: Shift.find_by_id(event.shift_id).team_id, id: event.shift_id), method: :get, style:"text-decoration: none"%>
+                    <%= link_to find_shift_by_id(event.shift_id).employee.name, shift_details_path(team_id: find_shift_by_id(event.shift_id).team_id, id: event.shift_id), method: :get, style:"text-decoration: none"%>
                   <% end %>
                 </li>
               <% end %>

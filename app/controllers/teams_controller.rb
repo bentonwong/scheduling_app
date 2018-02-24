@@ -2,6 +2,8 @@ class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update]
   before_action :authorized?
   before_action :employee_authorized?
+  before_action :set_workday_prefs, only: [:create, :update]
+  before_action :get_workday_prefs, only: [:show, :edit]
 
   def index
     @teams = Team.all
@@ -12,7 +14,9 @@ class TeamsController < ApplicationController
   end
 
   def create
-    @team = Team.create(team_params)
+    @team = Team.create(team_params) do |u|
+      u.workday_prefs = @workday_prefs
+    end
     @team.save ? (redirect_to team_path(@team)) : (render :action => 'new')
   end
 
@@ -23,7 +27,7 @@ class TeamsController < ApplicationController
   end
 
   def update
-    @team.update(team_params)
+    @team.update(name: team_params[:name], workday_prefs: workday_prefs)
     @team.save ? (redirect_to @team) : (render :action => 'edit')
   end
 
@@ -35,6 +39,17 @@ class TeamsController < ApplicationController
 
     def set_team
       @team = Team.find_by_id(params[:id])
+    end
+
+    def set_workday_prefs
+      @workday_prefs = Team.days_of_the_week.collect { |day| team_params[day] === "1" ? 1 : 0 }.join(',')
+    end
+
+    def get_workday_prefs
+      workday_prefs = @team.workday_prefs.split(',')
+      Team.days_of_the_week.each_with_index do |day, index|
+        workday_prefs[index] === "1" ? @team.send("#{day}=", true) : @team.send("#{day}=", false)
+      end
     end
 
 end
