@@ -34,34 +34,44 @@ class Shift < ApplicationRecord
       new_shift = Shift.new
       new_shift.team = team
       !employee ? (new_shift.employee = team.assignable_employee_array.sample) : (new_shift.employee = employee)
-      open_dates = self.find_next_open_dates(team, upcoming_shifts_cache)
-      open_dates.each do |day|
-        holiday_status = Day.holiday?(day)
-        new_shift.days.build(value: day, holiday: holiday_status, workday: !holiday_status)
-        upcoming_shifts_cache << day
+      dates = self.find_next_open_dates(team, upcoming_shifts_cache)
+      dates.each do |key, value|
+        value.each do |day|
+          holiday_status = Day.holiday?(day)
+          key === :on ? (workday_status = !holiday_status) : (workday_status = false)
+          new_shift.days.build(value: day, holiday: holiday_status, workday: workday_status)
+          upcoming_shifts_cache << day
+        end
       end
       new_shift.save
     end
   end
 
   def self.find_next_open_dates(team, cache)
-    team_start_day, shift_length, team_id = team.start_day, team.shift_length, team.id
-    next_start_day = Day.date_of_next(team_start_day)
+    team_workdays = team.workday_values_array
+    team_start_day = team_workdays.min
+    next_start_day = Day.date_of_next(0)
     finalized = false
     while !finalized do
       proposed_shift_dates = []
+      off_dates = []
       day = next_start_day
-      shift_length.times do
-        proposed_shift_dates << day
+      7.times do
+        if team_workdays.include?(day.wday)
+          proposed_shift_dates << day
+        else
+          off_dates << day
+        end
         day += 1
       end
+
       if proposed_shift_dates.all? { |date| !cache.include?(date) }
         finalized = true
       else
         next_start_day += 7
       end
     end
-    proposed_shift_dates.sort
+    {:on => proposed_shift_dates.sort, :off => off_dates.sort}
   end
 
   def get_shift_workdays
