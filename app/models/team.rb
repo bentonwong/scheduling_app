@@ -29,8 +29,9 @@ class Team < ApplicationRecord
   end
 
   def workday_values_array
-    days = Team.days_of_the_week.select { |day| self[day] }
-    days.collect{ |day| Team.day_value(day) }
+    self.workday_prefs_values
+    #days = Team.days_of_the_week.select { |day| self[day] }
+    #days.collect{ |day| Team.day_value(day) }
   end
 
   def collect_shift_ids_by_team

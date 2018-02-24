@@ -28,7 +28,7 @@ BUG_ENGINEERS = [
 BUG_ENGINEERING_TEAM = 'Bug Engineers'
 
 
-bug_engineering_team = Team.create(name: BUG_ENGINEERING_TEAM)
+bug_engineering_team = Team.create(name: BUG_ENGINEERING_TEAM, workday_prefs: "0,1,1,1,1,1,0")
 BUG_ENGINEERS.each do |employee|
   bug_engineering_team.employees.build(name: employee, assignable: true, admin: false)
 end
