@@ -12,15 +12,8 @@
       <p>
         Number of Members: <%= @team.employees.length %>
       </p>
-      <p>
-        Day of the Week Shifts Start: <%= team_start_day_as_string(@team) %>
-      </p>
-      <p>
-        Length of Weekly Shift Block (days): <%= @team.shift_length %>
-      </p>
     </div>
-    <div class="col s4" style="margin-top: 50px">
-
+    <div class="col s4" style="padding-top: 5%">
       <button class="waves-effect waves-light blue btn-floating btn-large tooltipped" data-position="bottom" data-delay="50" data-tooltip="See shifts">
         <i class="material-icons icon-white"><%= button_to "schedule", team_shifts_path(@team), method: :get%></i>
       </button>
@@ -32,43 +25,75 @@
       <button class="waves-effect waves-light btn-floating btn-large red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit shift details" style="margin-left:1em">
         <i class="material-icons icon-white"><%= button_to "edit", edit_team_path(@team), method: :get  %></i>
       </button>
-
     </div>
   </div>
 
-  <% if !@team.employees.empty? %>
-    <div>
-      <p>
-        Members
-      </p>
-      <table class="highlight" style="margin-top: 20px">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Assignable?</th>
-          </tr>
-        </thead>
-
+  <div class="row">
+    <div class="col s12"></div>
+    <div class="col s4">
+      <table class="col s4">
+        <theader class="center-align">
+          <div class="row grey lighten-2" style="padding: 0.5em 0">
+            <h6>
+              Regular Team Workdays
+            </h6>
+          </div>
+        </theader>
         <tbody>
-        <% team_employees_sorted_by(@team).each do |employee| %>
-          <tr>
-            <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
-            <td><%= employee.name %></td>
-            <td>
-              <% if employee.assignable %>
-                <i class="material-icons small icon-green" style="vertical-align: bottom">check</i>
-              <% end %>
-            </td>
-          <tr>
-        <% end %>
+          <% Team.days_of_the_week.each do |day| %>
+            <tr>
+              <td>
+                <%= day.upcase_first %>
+              </td>
+              <td>
+                <% if @team[day] %>
+                  <i class="material-icons small icon-green" style="vertical-align: bottom">check</i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>
-  <% else %>
-    <p>
-      This team has no members.
-    </p>
-  <% end %>
+  </div>
+
+  <div class="row">
+    <% if !@team.employees.empty? %>
+      <div class="center-align">
+        <div class="row grey lighten-2" style="padding: 0.5em">
+          <h6>
+            Members
+          </h6>
+        </div>
+        <table class="highlight" style="margin-top: 20px">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Assignable?</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          <% team_employees_sorted_by(@team).each do |employee| %>
+            <tr>
+              <td><%= link_to employee.id, employee_path(employee), method: :get %></td>
+              <td><%= employee.name %></td>
+              <td>
+                <% if employee.assignable %>
+                  <i class="material-icons small icon-green" style="vertical-align: bottom">check</i>
+                <% end %>
+              </td>
+            <tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p>
+        This team has no members.
+      </p>
+    <% end %>
+  </div>
 
 </div>

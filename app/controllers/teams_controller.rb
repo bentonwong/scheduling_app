@@ -1,6 +1,5 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update]
-  before_action :import_weekday_hash, only: [:new, :create, :edit, :update]
   before_action :authorized?
   before_action :employee_authorized?
 
@@ -13,7 +12,7 @@ class TeamsController < ApplicationController
   end
 
   def create
-    @team = Team.new(team_params)
+    @team = Team.create(team_params)
     @team.save ? (redirect_to team_path(@team)) : (render :action => 'new')
   end
 
@@ -31,16 +30,11 @@ class TeamsController < ApplicationController
   private
 
     def team_params
-      params.require(:team).permit(:name, :start_day, :shift_length)
+      params.require(:team).permit(:name, :sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday)
     end
 
     def set_team
       @team = Team.find_by_id(params[:id])
-    end
-
-    def import_weekday_hash
-      @weekdays = Team.reverse_weekday_hash
-      @shift_length_values = Team.shift_length_values
     end
 
 end

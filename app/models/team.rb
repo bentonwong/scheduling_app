@@ -6,36 +6,29 @@ class Team < ApplicationRecord
   validates :name, presence: :true
   validates :name, uniqueness: :true
 
-  WEEKDAY_HASH = {0 => "Sunday",
-      1 => "Monday",
-      2 => "Tuesday",
-      3 => "Wednesday",
-      4 => "Thursday",
-      5 => "Friday",
-      6 => "Saturday"}
+  DAYS_OF_THE_WEEK = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 
-  REVERSE_WEEKDAY_HASH = {
-    :Sunday => 0,
-    :Monday => 1,
-    :Tuesday => 2,
-    :Wednesday => 3,
-    :Thursday => 4,
-    :Friday => 5,
-    :Saturday => 6
+  WEEKDAY_TO_VALUE = {
+    :sunday => 0,
+    :monday => 1,
+    :tuesday => 2,
+    :wednesday => 3,
+    :thursday => 4,
+    :friday => 5,
+    :saturday => 6
   }
 
-  SHIFT_LENGTH_VALUES = [1, 2, 3, 4, 5, 6, 7]
-
-  def start_day_as_string
-    WEEKDAY_HASH[self.start_day]
+  def self.days_of_the_week
+    DAYS_OF_THE_WEEK
   end
 
-  def self.reverse_weekday_hash
-    REVERSE_WEEKDAY_HASH
+  def self.day_value(day)
+    WEEKDAY_TO_VALUE[day.to_sym]
   end
 
-  def self.shift_length_values
-    SHIFT_LENGTH_VALUES
+  def workday_values_array
+    days = Team.days_of_the_week.select { |day| self[day] }
+    days.collect{ |day| Team.day_value(day) }
   end
 
   def collect_shift_ids_by_team

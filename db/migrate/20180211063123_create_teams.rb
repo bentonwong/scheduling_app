@@ -2,8 +2,13 @@ class CreateTeams < ActiveRecord::Migration[5.1]
   def change
     create_table :teams do |t|
       t.string :name
-      t.integer :start_day, :default => 0
-      t.integer :shift_length, :default => 7
+      t.boolean :sunday, default: false
+      t.boolean :monday, default: false
+      t.boolean :tuesday, default: false
+      t.boolean :wednesday, default: false
+      t.boolean :thursday, default: false
+      t.boolean :friday, default: false
+      t.boolean :saturday, default: false
 
       t.timestamps
     end
