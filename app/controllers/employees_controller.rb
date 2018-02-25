@@ -1,8 +1,8 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update]
-  before_action :authorized?
+  before_action :authorized?, except: [:create_admin]
   before_action :set_teams, only: [:new, :create, :edit, :update]
-  before_action :employee_authorized?, except: [:dashboard, :shift_details]
+  before_action :employee_authorized?, except: [:dashboard, :shift_details, :create_admin]
 
   def index
     @employees = Employee.all
@@ -10,6 +10,11 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
+  end
+
+  def create_admin
+    Employee.create(name:'New Admin', assignable: false, admin: true)
+    redirect_to root_path
   end
 
   def create

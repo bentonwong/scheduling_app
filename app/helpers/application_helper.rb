@@ -16,6 +16,10 @@ module ApplicationHelper
     Time.current.year
   end
 
+  def employee_all
+    Employee.all
+  end
+
   private
 
     def authorized?

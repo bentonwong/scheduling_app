@@ -1,4 +1,4 @@
-<div class="container center-align" style="margin: 25% 25%">
+<div class="container" style="margin: 25% 25%">
   <%= form_for @employee, :url => url_for(:controller => 'session', :action => 'create') do |f| %>
 
     <div class="row">
@@ -6,7 +6,7 @@
         Login as
       </div>
 
-      <div class="col s4">
+      <div class="col s6">
         <%= f.collection_select :id, @employees, :id, :name %>
       </div>
 
@@ -17,8 +17,12 @@
           </i>
         </button>
       </div>
-
     </div>
+  <% end %>
+</div>
 
+<div class="center-align">
+  <% if !employee_all.any? {|employee| employee.admin } %>
+    <%= link_to "Create Admin", create_admin_path, method: :get %>
   <% end %>
 </div>

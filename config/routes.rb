@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'session#destroy', as: 'logout'
   get '/dashboard', to: 'employees#dashboard', as: 'dashboard'
   get '/dashboard/:team_id/shifts/:id', to: 'employees#shift_details', as: 'shift_details'
-
+  get '/create_admin', to: 'employees#create_admin', as: 'create_admin'
 
   resources :employees
   resources :teams do
