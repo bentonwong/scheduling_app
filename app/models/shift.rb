@@ -50,7 +50,7 @@ class Shift < ApplicationRecord
   def self.find_next_open_dates(team, cache)
     team_workdays = team.workday_values_array
     team_start_day = team_workdays.min
-    next_start_day = Day.date_of_next(0)
+    next_start_day = Day.date_of_next(team_start_day)
     finalized = false
     while !finalized do
       proposed_shift_dates = []

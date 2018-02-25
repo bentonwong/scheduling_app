@@ -35,8 +35,10 @@ class EmployeesController < ApplicationController
 
   def dashboard
     @employee = current_user
-    @next_shift_start_end_days = @employee.get_next_shift_start_end_days
-    set_dashboard_calendar
+    if @employee.teams.length > 0
+      @next_shift_start_end_days = @employee.get_next_shift_start_end_days
+      set_dashboard_calendar
+    end
   end
 
   def shift_details
