@@ -13,7 +13,7 @@ class EmployeesController < ApplicationController
   end
 
   def create_admin
-    Employee.create(name:'New Admin', assignable: false, admin: true)
+    Employee.create(name:"Admin <#{random_string}>", assignable: false, admin: true)
     redirect_to root_path
   end
 

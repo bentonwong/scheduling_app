@@ -6,11 +6,6 @@ WhenUWork is an employee scheduling application.  A working demonstration versio
 
 To run this application locally, a copy of it is available for download or cloning at https://github.com/bentonwong/scheduling_app.
 
-### Prerequisites
-
-A modern web browser
-A copy of this repo
-
 ### How to get the application to run locally
 
 1. Clone this repo from GitHub at the above address.

@@ -3,7 +3,7 @@ class Team < ApplicationRecord
   has_many :team_employees
   has_many :employees, through: :team_employees
 
-  validates :name, presence: :true
+  validates :name, :workday_prefs, presence: :true
   validates :name, uniqueness: :true
 
   attr_accessor :sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday

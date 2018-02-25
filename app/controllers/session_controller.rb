@@ -11,10 +11,14 @@ class SessionController < ApplicationController
   end
 
   def create
-    reset_session
-    @employee = Employee.find_by_id(session_params[:id])
-    session[:employee_id] = @employee.id
-    current_user_admin? ? (redirect_to teams_path) : (redirect_to dashboard_path)
+    if !params[:employee]
+      redirect_to root_path
+    else
+      reset_session
+      @employee = Employee.find_by_id(session_params[:id])
+      session[:employee_id] = @employee.id
+      current_user_admin? ? (redirect_to teams_path) : (redirect_to dashboard_path)
+    end
   end
 
   def destroy

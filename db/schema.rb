@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20180218154515) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
-    t.string "workday_prefs"
+    t.string "workday_prefs", default: "0,0,0,0,0,0,0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -92,4 +92,8 @@ module EmployeesHelper
     day.strftime("%A, %m/%d/%Y")
   end
 
+  def random_string
+    SecureRandom.hex(8)
+  end
+
 end
