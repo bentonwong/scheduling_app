@@ -57,7 +57,7 @@ Expiration of swap requests: The opportunity to response to accept a request wil
 
 ###Logging Out
 
-In order to access other accounts, users muse logout of an account before proceeding to log into other accounts.
+In order to access other accounts, users must logout of an account before proceeding to log into other accounts.
 
 ## Deployment
 
