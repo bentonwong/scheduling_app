@@ -50,12 +50,12 @@ class Shift < ApplicationRecord
   def self.find_next_open_dates(team, cache)
     team_workdays = team.workday_values_array
     team_start_day = team_workdays.min
-    next_start_day = Day.date_of_next(team_start_day)
+    next_start_of_week = Day.date_of_next(team_start_day) - team_start_day
     finalized = false
     while !finalized do
       proposed_shift_dates = []
       off_dates = []
-      day = next_start_day
+      day = next_start_of_week
       7.times do
         if team_workdays.include?(day.wday)
           proposed_shift_dates << day
@@ -68,7 +68,7 @@ class Shift < ApplicationRecord
       if proposed_shift_dates.all? { |date| !cache.include?(date) }
         finalized = true
       else
-        next_start_day += 7
+        next_start_of_week += 7
       end
     end
     {:on => proposed_shift_dates.sort, :off => off_dates.sort}
