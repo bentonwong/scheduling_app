@@ -13,9 +13,9 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+//= require jquery
 //= require materialize-sprockets
 //= require materialize
-//= require jquery
 
 $(document).ready(function() {
   $('select').material_select();
