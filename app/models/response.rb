@@ -26,6 +26,7 @@ class Response < ApplicationRecord
     req_shift, res_shift = req.shift, res.shift
     req_shift.employee, res_shift.employee  = res_shift.employee, req_shift.employee
     req.update(status: 'completed')
+    Response.update_open_responses
     instances = [req_shift, res_shift, req, res]
     instances.each { |instance| instance.save }
   end
