@@ -12,13 +12,14 @@ To run this application locally, a copy of it is available for download or cloni
 2. Change over to the directory in your terminal.
 3. Start the application up by typing `rails s` to boot up the rails server.
 4. If prompted, run `rake db:migrate` to set up the database.
-5. Optional: Run `rake db:seed` to establish sample employee accounts, which includes an admin account.
+5. Optional: Run `rake db:seed` to establish sample employee accounts upon starting the application, which includes an admin account.
 6. View and use the application at http://localhost:3000 or the indicated port.
-7. If no user accounts exists, there is a link at the bottom of the login page to create an admin account, enabling creation of other employee user accounts.
+7. After the server has successfully started, run 'whenever --update-crontab' in a separate terminal to start cron jobs to schedule daily update to records.  This is mainly used to cancel shift requests for shifts that have started, or expire the ability by other employees to accept swap requests once their shift has already started.
+8. If the application is started without being seeded and there are no admin users, there is a link at the bottom of the login page to create an admin account, enabling creation of other employee user accounts, teams, and shifts.
 
 ## How to run the tests
 
-Explain how to run the automated tests for this system
+Run 'rspec spec'
 
 ## How to use the application
 
