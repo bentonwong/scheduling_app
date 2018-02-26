@@ -19,7 +19,7 @@ To run this application locally, a copy of it is available for download or cloni
 
 ## How to run the tests
 
-Run 'rspec spec'
+Run 'rspec spec' from the root directory of the repo.
 
 ## How to use the application
 
