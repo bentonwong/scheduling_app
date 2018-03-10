@@ -1,26 +1,18 @@
 <div class="row">
-
   <%= render partial: "shifts/details", locals: {shift: @shift, employee: true} %>
-
 </div>
 
 <div class="divider"></div>
 
 <div class="row">
-
   <% if @shift.employee === current_user && @shift != shift_team_curent_shift(@shift) && !shift_started?(@shift) && !active_swap_requests?(@shift) && !@potential_trades.empty? %>
     <div class="row" style="margin: 2em 0">
       Request to swap this shift for one of these shifts (you may choose more than one):
     </div>
-
     <%= render partial: "employees/shift_details_partials/swap_req_form", locals: {shift: @shift, request: @request, potential_trades: @potential_trades} %>
-
   <% end %>
 
   <% if active_swap_requests?(@shift) %>
-
     <%= render partial: "employees/shift_details_partials/swap_cancellation_form", locals: {shift: @shift} %>
-
   <% end %>
-
 </div>
