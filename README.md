@@ -1,15 +1,15 @@
 # WhenUWork
 
-WhenUWork is an employee scheduling application.  A working demonstration version of this application is available at https://whenuwork-x-bw.herokuapp.com/.
+WhenUWork is an employee scheduling application.  A working demonstration version of this application is available at https://whenuwork-x-bw.herokuapp.com
 
 ## Getting Started
 
-To run this application locally, a copy of it is available for download or cloning at https://github.com/bentonwong/scheduling_app.
+To run this application locally, a copy of it is available for download or cloning at: https://github.com/bentonwong/scheduling_app
 
 ### How to get the application to run locally
 
 1. Clone this repo from GitHub at the above address.
-2. Change over to the directory in your terminal.
+2. Change over to the clone's directory in your terminal.
 3. Start the application up by typing `rails s` to boot up the rails server.
 4. If prompted, run `rake db:migrate` to set up the database.
 5. Optional: Run `rake db:seed` to establish sample employee accounts upon starting the application, which includes an admin account.
